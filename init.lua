@@ -5,7 +5,7 @@ vim.o.swapfile = false
 vim.o.wrap = false
 vim.o.expandtab = true
 vim.o.tabstop = 2
-vim.o.shiftwidth = 2
+vim.o.shiftwidth = 0
 vim.o.mouse = ""
 vim.o.scrolloff = 5
 vim.o.signcolumn = "yes"
@@ -58,21 +58,20 @@ require("ts-query-loader").setup({
 })
 -- Mason
 require("mason").setup()
+require("mason-lspconfig").setup()
 require("mason-tool-installer").setup({
-	ensure_installed = { "tree-sitter-cli" },
-	auto_update = true,
-})
-require("mason-lspconfig").setup({
 	ensure_installed = {
-		"tinymist",
+		"tree-sitter-cli",
 		"jsonls",
 		"lua_ls",
 		"stylua",
 		"rust_analyzer",
 		"ts_ls",
+		"tinymist",
 		-- "tombi",
 		"yamlls",
 	},
+	auto_update = true,
 })
 ----------------------
 -- LSP Config --
