@@ -32,10 +32,11 @@ vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/nvim-mini/mini.snippets" },
 	{ src = "https://github.com/nvim-mini/mini.statusline" },
+	{ src = "https://github.com/nvim-mini/mini.pairs" },
 	{ src = "https://github.com/nvim-mini/mini.pick" },
 	{ src = "https://github.com/nvim-mini/mini.files" },
 	{ src = "https://github.com/farmergreg/vim-lastplace" },
-})
+}, { confirm = false })
 -- colorscheme
 require("everforest").setup({ transparent_background_level = 2 })
 vim.cmd.colorscheme("everforest")
@@ -47,6 +48,7 @@ require("blink.cmp").setup({
 -- mini packs
 require("mini.snippets").setup()
 require("mini.statusline").setup()
+require("mini.pairs").setup()
 require("mini.pick").setup()
 require("mini.files").setup({ windows = { preview = true } })
 -- treesitter loader
