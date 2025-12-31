@@ -148,12 +148,12 @@ vim.keymap.set("n", "]d", function()
 end, { desc = "next diagnostic" })
 -- AutoCmds --
 -- Auto Formatting
-vim.api.nvim_create_autocmd("BufWritePre", {
-	callback = function()
-		vim.lsp.buf.format()
-	end,
-	pattern = "*",
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+-- 	callback = function()
+-- 		vim.lsp.buf.format()
+-- 	end,
+-- 	pattern = "*",
+-- })
 -- Highlight Yanked Texts
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "highlight copying text",
