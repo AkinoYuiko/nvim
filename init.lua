@@ -15,106 +15,89 @@ vim.o.smartcase = true
 vim.o.hlsearch = false
 vim.o.incsearch = true
 vim.o.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldlevel = 99
 vim.o.termguicolors = true
 vim.g.mapleader = " "
--- 2 Colorscheme
+-- Packages
 vim.pack.add({
-	{ src = "https://github.com/akinoyuiko/lightline.vim", name = "lightline" },
-	"https://github.com/sainnhe/everforest",
+  { src = "https://github.com/akinoyuiko/lightline.vim" },
+  { src = "https://github.com/sainnhe/everforest" },
+  { src = "https://github.com/saghen/blink.cmp",               version = vim.version.range("^1") },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+  { src = 'https://github.com/mason-org/mason.nvim' },
+  { src = "https://github.com/nvim-mini/mini.pick" },
+  { src = "https://github.com/nvim-mini/mini.files" },
 }, { confirm = false })
 vim.g.lightline = { colorscheme = "everforest" }
 vim.g.everforest_transparent_background = 2
 vim.cmd.colorscheme("everforest")
--- 3 Plugins
-vim.pack.add({
-	-- { src = 'https://github.com/mason-org/mason.nvim' },  -- LSP 安装管理器
-	{ src = "https://github.com/neovim/nvim-lspconfig" }, -- LSP 配置
-	{ src = "https://github.com/nvim-mini/mini.pick" }, -- 文件/缓冲区选择器
-	{ src = "https://github.com/nvim-mini/mini.files" }, -- 文件浏览器
-}, { confirm = false })
 -- nvim-treesitter
-vim.pack.add({
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-}, { confirm = false })
 local ts = require("nvim-treesitter")
 local augroup = vim.api.nvim_create_augroup("myconfig.treesitter", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-	group = augroup,
-	pattern = { "*" },
-	callback = function(event)
-		local filetype = event.match
-		local lang = vim.treesitter.language.get_lang(filetype)
-		local is_installed, error = vim.treesitter.language.add(lang)
-		if not is_installed then
-			local available_langs = ts.get_available()
-			local is_available = vim.tbl_contains(available_langs, lang)
-			if is_available then
-				vim.notify("Installing treesitter parser for " .. lang, vim.log.levels.INFO)
-				ts.install({ lang }):wait(30 * 1000)
-			end
-		end
-		local ok, _ = pcall(vim.treesitter.start, event.buf, lang)
-		if not ok then
-			return
-		end
-		vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-	end,
-})
-vim.api.nvim_create_autocmd("PackChanged", {
-	group = augroup,
-	pattern = { "nvim-treesitter" },
-	callback = function(event)
-		vim.notify("Updating treesitter parsers", vim.log.levels.INFO)
-		ts.update(nil, { summary = true }):wait(30 * 1000)
-	end,
-})
--- blink.cmp 安装补全配置以及触发加载
-vim.pack.add({
-	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
-}, {
-	load = function(plug_data)
-		vim.opt.runtimepath:append(plug_data.path)
-		require("blink.cmp").setup({
-			keymap = { preset = "super-tab" },
-			sources = { default = { "lsp", "path", "snippets", "buffer" } },
-		})
-	end,
-	confirm = false,
-})
-----------------------
--- 插件配置 --
-----------------------
--- 插件延迟加载（在读取文件或创建新文件时加载）
--- vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
--- 	callback = function()
--- require('mason').setup() -- Mason
-require("mini.pick").setup() -- mini.pick 配置
-require("mini.files").setup({ windows = { preview = true } }) -- mini.files 文件浏览器配置
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	group = augroup,
+-- 	pattern = { "*" },
+-- 	callback = function(event)
+-- 		local filetype = event.match
+-- 		local lang = vim.treesitter.language.get_lang(filetype)
+-- 		local is_installed, error = vim.treesitter.language.add(lang)
+-- 		if not is_installed then
+-- 			local available_langs = ts.get_available()
+-- 			local is_available = vim.tbl_contains(available_langs, lang)
+-- 			if is_available then
+-- 				vim.notify("Installing treesitter parser for " .. lang, vim.log.levels.INFO)
+-- 				ts.install({ lang }):wait(30 * 1000)
+-- 			end
+-- 		end
+-- 		local ok, _ = pcall(vim.treesitter.start, event.buf, lang)
+-- 		if not ok then
+-- 			return
+-- 		end
+-- 		vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+-- 		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- 	end,
 -- })
+vim.api.nvim_create_autocmd("PackChanged", {
+  group = augroup,
+  pattern = { "nvim-treesitter" },
+  callback = function()
+    vim.notify("Updating treesitter parsers", vim.log.levels.INFO)
+    ts.update(nil, { summary = true }):wait(30 * 1000)
+  end,
+})
+-- blink.cmp 安装补全配置以及触发加载
+require("blink.cmp").setup({
+  fuzzy = { implementation = "prefer_rust_with_warning" },
+  signature = { enabled = true },
+  keymap = { preset = "super-tab" },
+  completion = {
+    documentation = {
+      auto_show = true,
+      auto_show_delay_ms = 200,
+    },
+  },
+  sources = {
+    -- default = { "lsp", "path", "snippets", "buffer" },
+    default = { "lsp" },
+  },
+})
+require('mason').setup()
+require("mini.pick").setup()
+require("mini.files").setup({ windows = { preview = true } })
 ----------------------
--- LSP 配置 --
+-- LSP Configuration
 ----------------------
--- 启用 LSP
-vim.lsp.enable({ "stylua", "rust_analyzer", "jsonls" })
--- LSP 诊断显示
+vim.lsp.enable({
+  "lua_ls",
+  "rust-analyzer",
+  "jsonls",
+})
 vim.diagnostic.config({ virtual_text = true }) -- 行内文本提示
 -- vim.diagnostic.config({ virtual_lines = true }) -- 虚拟行提示（可选）
--- Configuration for jsonls
-vim.lsp.config("jsonls", {
-	settings = {
-		json = {
-			allowComments = true,
-			allowTrailingCommas = true,
-		},
-	},
-})
 -- .lsr as .conf
 vim.filetype.add({
-	extension = { lsr = "conf" },
+  extension = { lsr = "conf" },
 })
 ----------------------
 -- Key Mapping --
@@ -159,26 +142,26 @@ vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" }
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
 -- 快速跳转诊断
 vim.keymap.set("n", "[d", function()
-	vim.diagnostic.jump({ wrap = true, count = -1 })
+  vim.diagnostic.jump({ wrap = true, count = -1 })
 end, { desc = "prev diagnostic" })
 vim.keymap.set("n", "]d", function()
-	vim.diagnostic.jump({ wrap = true, count = 1 })
+  vim.diagnostic.jump({ wrap = true, count = 1 })
 end, { desc = "next diagnostic" })
 ----------------------
 -- 自动命令 --
 ----------------------
 -- 保存前自动格式化
 vim.api.nvim_create_autocmd("BufWritePre", {
-	callback = function()
-		vim.lsp.buf.format()
-	end,
-	pattern = "*",
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+  pattern = "*",
 })
 -- 复制高亮提示
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "highlight copying text",
-	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank({ timeout = 500 })
-	end,
+  desc = "highlight copying text",
+  group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank({ timeout = 500 })
+  end,
 })
