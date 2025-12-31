@@ -27,7 +27,8 @@ vim.pack.add({
 	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/Corn207/ts-query-loader.nvim" },
-	-- { src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/nvim-mini/mini.pick" },
 	{ src = "https://github.com/nvim-mini/mini.files" },
@@ -41,7 +42,7 @@ require("blink.cmp").setup({
 	keymap = { preset = "super-tab" },
 	completion = { documentation = { auto_show = true } },
 })
--- require("mason").setup()
+-- mini pick/files
 require("mini.pick").setup()
 require("mini.files").setup({ windows = { preview = true } })
 -- treesitter loader
@@ -52,6 +53,20 @@ require("ts-query-loader").setup({
 		"nginx",
 		"typst",
 		"typescript",
+	},
+})
+-- Mason
+require("mason").setup()
+require("mason-lspconfig").setup({
+	ensure_installed = {
+		"jsonls",
+		"lua_ls",
+		"stylua",
+		"rust_analyzer",
+		"ts_ls",
+		"tombi",
+		"tinymist",
+		"yamlls",
 	},
 })
 ----------------------
@@ -81,16 +96,7 @@ vim.lsp.config("lua_ls", {
 		},
 	},
 })
-vim.lsp.enable({
-	"stylua",
-	"lua_ls",
-	"rust_analyzer",
-	"jsonls",
-	"ts_ls",
-	"tombi",
-	"typst_lsp",
-	"yamlls",
-})
+-- vim.lsp.enable(lsp_tbl)
 vim.diagnostic.config({ virtual_text = true })
 vim.filetype.add({ extension = { lsr = "conf" } }) -- .lsr as .conf
 ----------------------
