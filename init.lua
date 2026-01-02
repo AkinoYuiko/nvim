@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
-vim.opt.cursorline = true
 vim.opt.number = true
+vim.opt.cursorline = true
+vim.opt.fillchars = { eob = " " }
 vim.opt.swapfile = false
 vim.opt.wrap = false
 vim.opt.expandtab = true
@@ -15,57 +16,56 @@ vim.opt.smartcase = true
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldenable = false
 vim.opt.termguicolors = true
 -- lazy.nvim --
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
-		lazypath,
-	})
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
 end
 vim.opt.rtp:prepend(lazypath)
 -- Packages --
 require("lazy").setup({
 	{
-		"neanias/everforest-nvim",
-		-- lazy = true,
-		opts = {
-			background = "hard",
-			transparent_background_level = 2,
-		},
+		"sainnhe/everforest",
 		config = function()
+			vim.g.everforest_background = "hard"
+			vim.g.everforest_transparent_background = 2
 			vim.cmd.colorscheme("everforest")
 		end,
 	},
 	{
 		"saghen/blink.cmp",
-		version = "^1",
-		opts = {
-			keymap = { preset = "super-tab" },
-			completion = { documentation = { auto_show = true } },
-		},
+		version = "1.*",
+		opts = { keymap = { preset = "super-tab" }, completion = { documentation = { auto_show = true } } },
 	},
-	{ "nvim-treesitter/nvim-treesitter" },
 	{
-		"Corn207/ts-query-loader.nvim",
-		opts = { ensure_installed = { "rust", "json", "yaml", "toml", "nginx", "typst", "typescript" } },
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		config = function()
+			local parsers = { "go", "rust", "json", "yaml", "toml", "nginx", "python", "typst", "typescript" }
+			require("nvim-treesitter").install(parsers)
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function()
+					if vim.bo.filetype ~= "" and vim.treesitter.query.get(vim.bo.filetype, "highlights") then
+						vim.treesitter.start()
+						vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					end
+				end,
+			})
+		end,
 	},
 	{ "neovim/nvim-lspconfig" },
 	{ "mason-org/mason.nvim", opts = {} },
-	{ "mason-org/mason-lspconfig.nvim", opts = {} },
 	{
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		"mason-org/mason-lspconfig.nvim",
 		opts = {
+			---@type string[]
 			ensure_installed = {
-				"tree-sitter-cli",
 				-- "bashls",
+				-- "fish_lsp",
 				"jsonls",
 				"lua_ls",
 				"stylua",
@@ -75,28 +75,20 @@ require("lazy").setup({
 				"tombi",
 				"yamlls",
 			},
-			auto_update = true,
 		},
 	},
 	{ "nvim-mini/mini.snippets", opts = {} },
 	{ "nvim-mini/mini.statusline", opts = {} },
-	-- { "nvim-mini/mini.pairs", opts = {} },
 	{ "nvim-mini/mini.pick", opts = {} },
 	{ "nvim-mini/mini.files", opts = { windows = { preview = true } } },
 	{ "farmergreg/vim-lastplace", event = "BufReadPost" },
 })
 -- LSP Config --
 vim.lsp.config("jsonls", { settings = { json = { allowComments = true, allowTrailingCommas = true } } })
-vim.lsp.config("lua_ls", {
-	settings = {
-		Lua = {
-			runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
-			diagnostics = { globals = { "vim" } },
-			workspace = { library = vim.api.nvim_get_runtime_file("", true), checkThirdParty = false },
-			format = { enable = false },
-		},
-	},
-})
+vim.lsp.config(
+	"lua_ls",
+	{ settings = { Lua = { diagnostics = { globals = { "vim" } }, format = { enable = false } } } }
+)
 -- vim.lsp.enable({ ... })
 vim.diagnostic.config({ virtual_text = true })
 vim.filetype.add({ extension = { lsr = "conf" } }) -- .lsr as .conf
@@ -148,12 +140,7 @@ vim.keymap.set("n", "]d", function()
 end, { desc = "next diagnostic" })
 -- AutoCmds --
 -- Auto Formatting
--- vim.api.nvim_create_autocmd("BufWritePre", {
--- 	callback = function()
--- 		vim.lsp.buf.format()
--- 	end,
--- 	pattern = "*",
--- })
+-- vim.api.nvim_create_autocmd("BufWritePre", { callback = function() vim.lsp.buf.format() end, pattern = "*", })
 -- Highlight Yanked Texts
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "highlight copying text",
