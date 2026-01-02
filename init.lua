@@ -84,7 +84,7 @@ require("lazy").setup({
 	{ "farmergreg/vim-lastplace", event = "BufReadPost" },
 })
 -- LSP Config --
-vim.lsp.config("jsonls", { settings = { json = { allowComments = true, allowTrailingCommas = true } } })
+vim.lsp.config("jsonls", { settings = { json = { allowComments = true } } })
 vim.lsp.config(
 	"lua_ls",
 	{ settings = { Lua = { diagnostics = { globals = { "vim" } }, format = { enable = false } } } }
