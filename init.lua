@@ -77,10 +77,13 @@ require("lazy").setup({
 			},
 		},
 	},
+	{ "nvim-mini/mini.files", opts = { windows = { preview = true } } },
+	{ "nvim-mini/mini.icons", opts = {} },
+	{ "nvim-mini/mini.notify", opts = {} },
+	{ "nvim-mini/mini.pick", opts = {} },
 	{ "nvim-mini/mini.snippets", opts = {} },
 	{ "nvim-mini/mini.statusline", opts = {} },
-	{ "nvim-mini/mini.pick", opts = {} },
-	{ "nvim-mini/mini.files", opts = { windows = { preview = true } } },
+	{ "nvim-mini/mini.tabline", opts = {} },
 	{ "farmergreg/vim-lastplace", event = "BufReadPost" },
 })
 -- LSP Config --
