@@ -28,10 +28,8 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-mini/mini.icons" },
 	{ src = "https://github.com/nvim-mini/mini.keymap" },
 	{ src = "https://github.com/nvim-mini/mini.notify" },
-	{ src = "https://github.com/nvim-mini/mini.pairs" },
 	{ src = "https://github.com/nvim-mini/mini.pick" },
 	{ src = "https://github.com/nvim-mini/mini.snippets" },
-	{ src = "https://github.com/nvim-mini/mini.surround" },
 	{ src = "https://github.com/nvim-mini/mini.statusline" },
 	{ src = "https://github.com/nvim-mini/mini.tabline" },
 	{ src = "https://github.com/farmergreg/vim-lastplace" },
@@ -42,7 +40,7 @@ vim.g.everforest_background = "hard"
 vim.g.everforest_transparent_background = 2
 vim.cmd.colorscheme("everforest")
 -- mini packs
-for _, mod in ipairs({ "completion", "cmdline", "icons", "notify", "pairs", "pick", "surround", "snippets", "statusline", "tabline" }) do
+for _, mod in ipairs({ "completion", "cmdline", "icons", "notify", "pick", "snippets", "statusline", "tabline" }) do
 	require("mini." .. mod).setup()
 end
 require("mini.files").setup({ windows = { preview = true } })
@@ -58,7 +56,7 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 -- LSP Config --
 vim.lsp.config("jsonls", { settings = { json = { allowComments = true } } })
-vim.lsp.config("emmylua_ls", { settings = { Lua = { runtime = { version = "LuaJIT", }, diagnostics = { globals = { "vim" } } } } })
+vim.lsp.config("emmylua_ls", { settings = { Lua = { diagnostics = { globals = { "vim" } } } } })
 -- vim.lsp.enable({ "jsonls", "lua_ls", "stylua", "rust_analyzer", "ts_ls", "tinymist", "tombi", "yamlls" })
 vim.diagnostic.config({ virtual_text = true })
 vim.filetype.add({ extension = { lsr = "conf" } }) -- .lsr as .conf
@@ -70,9 +68,9 @@ vim.keymap.set("n", "<leader>up", function()
 	vim.pack.update(nil, { force = true })
 end, { desc = "format" })
 -- Personal
-vim.keymap.set({ "n", "v", "o" }, ";", ":")
-vim.keymap.set({ "n", "v", "o" }, "H", "^")
-vim.keymap.set({ "n", "v", "o" }, "L", "g_")
+vim.keymap.set({ "n", "v" }, ";", ":")
+vim.keymap.set({ "n", "v" }, "H", "^")
+vim.keymap.set({ "n", "v" }, "L", "g_")
 vim.keymap.set("n", "<leader>m", "<cmd>set nu! nu?<cr>")
 vim.keymap.set("n", "<leader>w", "<cmd>set wrap! wrap?<cr>")
 vim.keymap.set("n", "<leader>l", "<cmd>set list! list?<cr>")
