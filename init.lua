@@ -45,9 +45,11 @@ for _, mod in ipairs({ "completion", "cmdline", "icons", "notify", "pick", "snip
 end
 require("mini.files").setup({ windows = { preview = true } })
 local map_multistep = require("mini.keymap").map_multistep
-map_multistep("i", "<Tab>", { "pmenu_next" })
-map_multistep("i", "<S-Tab>", { "pmenu_prev" })
-map_multistep("i", "<CR>", { "pmenu_accept", "minipairs_cr" })
+if map_multistep ~= nil then
+	map_multistep("i", "<Tab>", { "pmenu_next" })
+	map_multistep("i", "<S-Tab>", { "pmenu_prev" })
+	map_multistep("i", "<CR>", { "pmenu_accept", "minipairs_cr" })
+end
 -- nvim-treesitter
 -- local parsers = { "go", "rust", "json", "yaml", "toml", "nginx", "python", "typst", "typescript" }
 -- require("nvim-treesitter").instal(parsers)
@@ -56,8 +58,7 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 -- LSP Config --
 vim.lsp.config("jsonls", { settings = { json = { allowComments = true } } })
-vim.lsp.config("emmylua_ls", { settings = { Lua = { diagnostics = { globals = { "vim" } } } } })
--- vim.lsp.enable({ "jsonls", "lua_ls", "stylua", "rust_analyzer", "ts_ls", "tinymist", "tombi", "yamlls" })
+-- vim.lsp.enable({ "jsonls", "emmylua_ls", "stylua", "rust_analyzer", "ts_ls", "tinymist", "tombi", "yamlls" })
 vim.diagnostic.config({ virtual_text = true })
 vim.filetype.add({ extension = { lsr = "conf" } }) -- .lsr as .conf
 -- Key Mapping --
@@ -123,7 +124,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = augroup,
 	callback = function(ev)
 		local lang = vim.treesitter.language.get_lang(ev.match)
-		if vim.treesitter.language.add(lang) then
+		if lang and vim.treesitter.language.add(lang) then
 			if pcall(vim.treesitter.start, ev.buf, lang) then
 				vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 				vim.wo.foldmethod = "expr"
