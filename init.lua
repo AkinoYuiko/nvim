@@ -23,6 +23,7 @@ vim.pack.add({
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.completion" },
+	{ src = "https://github.com/nvim-mini/mini.cmdline" },
 	{ src = "https://github.com/nvim-mini/mini.files" },
 	{ src = "https://github.com/nvim-mini/mini.icons" },
 	{ src = "https://github.com/nvim-mini/mini.keymap" },
@@ -41,7 +42,7 @@ vim.g.everforest_background = "hard"
 vim.g.everforest_transparent_background = 2
 vim.cmd.colorscheme("everforest")
 -- mini packs
-for _, mod in ipairs({ "completion", "icons", "notify", "pairs", "pick", "surround", "snippets", "statusline", "tabline" }) do
+for _, mod in ipairs({ "completion", "cmdline", "icons", "notify", "pairs", "pick", "surround", "snippets", "statusline", "tabline" }) do
 	require("mini." .. mod).setup()
 end
 require("mini.files").setup({ windows = { preview = true } })
@@ -57,7 +58,7 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 -- LSP Config --
 vim.lsp.config("jsonls", { settings = { json = { allowComments = true } } })
-vim.lsp.config("lua_ls", { settings = { Lua = { diagnostics = { globals = { "vim" } }, format = { enable = false } } } })
+vim.lsp.config("emmylua_ls", { settings = { Lua = { runtime = { version = "LuaJIT", }, diagnostics = { globals = { "vim" } } } } })
 -- vim.lsp.enable({ "jsonls", "lua_ls", "stylua", "rust_analyzer", "ts_ls", "tinymist", "tombi", "yamlls" })
 vim.diagnostic.config({ virtual_text = true })
 vim.filetype.add({ extension = { lsr = "conf" } }) -- .lsr as .conf
