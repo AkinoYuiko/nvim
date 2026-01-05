@@ -11,6 +11,7 @@ vim.opt.mouse = "nv"
 vim.opt.scrolloff = 5
 vim.opt.signcolumn = "yes"
 vim.opt.winborder = "rounded"
+vim.opt.inccommand = "split"
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = false
@@ -69,7 +70,7 @@ vim.keymap.set("n", "<leader>up", function()
 	vim.pack.update(nil, { force = true })
 end, { desc = "format" })
 -- Personal
-vim.keymap.set({ "n", "v" }, ";", ":")
+-- vim.keymap.set({ "n", "v" }, ";", ":")
 vim.keymap.set({ "n", "v" }, "H", "^")
 vim.keymap.set({ "n", "v" }, "L", "g_")
 vim.keymap.set("n", "<leader>m", "<cmd>set nu! nu?<cr>")
