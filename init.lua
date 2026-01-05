@@ -21,8 +21,8 @@ vim.pack.add({
 	{ src = "https://github.com/sainnhe/everforest" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
-	{ src = "https://github.com/mason-org/mason.nvim" },
-	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+	-- { src = "https://github.com/mason-org/mason.nvim" },
+	-- { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.completion" },
 	{ src = "https://github.com/nvim-mini/mini.cmdline" },
 	{ src = "https://github.com/nvim-mini/mini.files" },
@@ -33,9 +33,9 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-mini/mini.snippets" },
 	{ src = "https://github.com/nvim-mini/mini.statusline" },
 	{ src = "https://github.com/nvim-mini/mini.tabline" },
-	{ src = "https://github.com/farmergreg/vim-lastplace" },
-	{ src = "https://github.com/tpope/vim-sleuth" },
-})
+	-- { src = "https://github.com/farmergreg/vim-lastplace" },
+	-- { src = "https://github.com/tpope/vim-sleuth" },
+}, {corfirm = false})
 -- colorscheme
 vim.g.everforest_background = "hard"
 vim.g.everforest_transparent_background = 2
@@ -55,11 +55,11 @@ end
 -- local parsers = { "go", "rust", "json", "yaml", "toml", "nginx", "python", "typst", "typescript" }
 -- require("nvim-treesitter").instal(parsers)
 -- mason
-require("mason").setup()
-require("mason-lspconfig").setup()
+-- require("mason").setup()
+-- require("mason-lspconfig").setup()
 -- LSP Config --
 vim.lsp.config("jsonls", { settings = { json = { allowComments = true } } })
--- vim.lsp.enable({ "jsonls", "emmylua_ls", "stylua", "rust_analyzer", "ts_ls", "tinymist", "tombi", "yamlls" })
+vim.lsp.enable({"emmylua_ls", "jsonls", "rust_analyzer", "stylua", "tinymist", "tombi", "ts_ls", "yamlls",})
 vim.diagnostic.config({ virtual_text = true })
 vim.filetype.add({ extension = { lsr = "conf" } }) -- .lsr as .conf
 -- Key Mapping --
