@@ -37,25 +37,29 @@ vim.pack.add({
 	{ src = "https://github.com/farmergreg/vim-lastplace" },
 	-- { src = "https://github.com/tpope/vim-sleuth" },
 }, { confirm = false })
--- colorscheme
+-- Colorscheme
 vim.g.everforest_background = "hard"
 vim.g.everforest_transparent_background = 2
 vim.cmd.colorscheme("everforest")
--- mini packs
-for _, mod in ipairs({ "ai", "completion", "cmdline", "icons", "notify", "pick", "snippets", "statusline", "tabline" }) do
+-- Mini Packs Setup
+local mini_modules = { "ai", "completion", "cmdline", "icons", "notify", "pick", "snippets", "statusline", "tabline" }
+for _, mod in ipairs(mini_modules) do
 	require("mini." .. mod).setup()
 end
 require("mini.files").setup({ windows = { preview = true } })
-local map_multistep = require("mini.keymap").map_multistep
-if map_multistep ~= nil then
-	map_multistep("i", "<Tab>", { "pmenu_next" })
-	map_multistep("i", "<S-Tab>", { "pmenu_prev" })
-	map_multistep("i", "<CR>", { "pmenu_accept", "minipairs_cr" })
+local ok, mini_keymap = pcall(require, "mini.keymap")
+if ok then
+	local map_multistep = mini_keymap.map_multistep
+	if map_multistep ~= nil then
+		map_multistep("i", "<Tab>", { "pmenu_next" })
+		map_multistep("i", "<S-Tab>", { "pmenu_prev" })
+		map_multistep("i", "<CR>", { "pmenu_accept", "minipairs_cr" })
+	end
 end
 -- nvim-treesitter
 -- local parsers = { "go", "rust", "json", "yaml", "toml", "nginx", "python", "typst", "typescript" }
 -- require("nvim-treesitter").instal(parsers)
--- mason
+-- Mason
 require("mason").setup()
 -- require("mason-lspconfig").setup()
 -- LSP Config --
@@ -64,66 +68,68 @@ vim.lsp.enable({ "emmylua_ls", "jsonls", "rust_analyzer", "stylua", "tinymist", 
 vim.diagnostic.config({ virtual_text = true })
 vim.filetype.add({ extension = { lsr = "conf" } }) -- .lsr as .conf
 -- Key Mapping --
+local keymap_set = vim.keymap.set
 -- Format
-vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "format" })
+keymap_set("n", "<leader>lf", vim.lsp.buf.format, { desc = "format" })
 -- Update
-vim.keymap.set("n", "<leader>up", function()
+keymap_set("n", "<leader>up", function()
 	vim.pack.update(nil, { force = true })
-end, { desc = "format" })
+end, { desc = "Update packages" })
 -- Personal
-vim.keymap.set({ "n", "v" }, ";", ":")
-vim.keymap.set({ "n", "v" }, "H", "^")
-vim.keymap.set({ "n", "v" }, "L", "g_")
-vim.keymap.set("n", "<leader>m", "<cmd>set nu! nu?<cr>")
-vim.keymap.set("n", "<leader>w", "<cmd>set wrap! wrap?<cr>")
-vim.keymap.set("n", "<leader>l", "<cmd>set list! list?<cr>")
+keymap_set({ "n", "v" }, ";", ":")
+keymap_set({ "n", "v" }, "H", "^")
+keymap_set({ "n", "v" }, "L", "g_")
+keymap_set("n", "<leader>m", "<cmd>set nu! nu?<cr>")
+keymap_set("n", "<leader>w", "<cmd>set wrap! wrap?<cr>")
+keymap_set("n", "<leader>l", "<cmd>set list! list?<cr>")
 -- System clipboard
-vim.keymap.set({ "n", "v" }, "<leader>c", '"+y', { desc = "copy to system clipboard" })
-vim.keymap.set({ "n", "v" }, "<leader>x", '"+d', { desc = "cut to system clipboard" })
-vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = "paste to system clipboard" })
+keymap_set({ "n", "v" }, "<leader>c", '"+y', { desc = "copy to system clipboard" })
+keymap_set({ "n", "v" }, "<leader>x", '"+d', { desc = "cut to system clipboard" })
+keymap_set({ "n", "v" }, "<leader>p", '"+p', { desc = "paste to system clipboard" })
 -- Window switch
--- vim.keymap.set('n', '<leader>ww', '<C-w>w', { desc = 'focus windows' })
+-- keymap_set('n', '<leader>ww', '<C-w>w', { desc = 'focus windows' })
 -- Line move
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+keymap_set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
+keymap_set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
+keymap_set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+keymap_set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 -- File/Package keymaps
-vim.keymap.set("n", "<leader>e", ":lua MiniFiles.open()<CR>", { desc = "open file explorer" })
-vim.keymap.set("n", "<leader>f", ":Pick files<CR>", { desc = "open file picker" })
-vim.keymap.set("n", "<leader>g", ":Pick grep_live<CR>", { desc = "open grep picker" })
-vim.keymap.set("n", "<leader>h", ":Pick help<CR>", { desc = "open help picker" })
-vim.keymap.set("n", "<leader>b", ":Pick buffers<CR>", { desc = "open buffer picker" })
-vim.keymap.set("n", "<leader>dd", vim.diagnostic.open_float, { desc = "diagnostic messages" })
+keymap_set("n", "<leader>e", ":lua MiniFiles.open()<CR>", { desc = "open file explorer" })
+keymap_set("n", "<leader>f", ":Pick files<CR>", { desc = "open file picker" })
+keymap_set("n", "<leader>g", ":Pick grep_live<CR>", { desc = "open grep picker" })
+keymap_set("n", "<leader>h", ":Pick help<CR>", { desc = "open help picker" })
+keymap_set("n", "<leader>b", ":Pick buffers<CR>", { desc = "open buffer picker" })
+keymap_set("n", "<leader>dd", vim.diagnostic.open_float, { desc = "diagnostic messages" })
 -- LSP keymaps
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
-vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
-vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Find references" })
-vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
+keymap_set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+keymap_set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
+keymap_set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
+keymap_set("n", "gr", vim.lsp.buf.references, { desc = "Find references" })
+keymap_set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
+keymap_set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
 -- Fast diagnostic
-vim.keymap.set("n", "[d", function()
+keymap_set("n", "[d", function()
 	vim.diagnostic.jump({ wrap = true, count = -1 })
 end, { desc = "prev diagnostic" })
-vim.keymap.set("n", "]d", function()
+keymap_set("n", "]d", function()
 	vim.diagnostic.jump({ wrap = true, count = 1 })
 end, { desc = "next diagnostic" })
 -- AutoCmds --
+local augroup_treesitter = vim.api.nvim_create_augroup("nvim.treesitter", { clear = true })
+local augroup_yank = vim.api.nvim_create_augroup("highlight-yank", { clear = true })
 -- Auto Formatting
 -- vim.api.nvim_create_autocmd("BufWritePre", { callback = function() vim.lsp.buf.format() end, pattern = "*", })
 -- Highlight Yanked Texts
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "highlight copying text",
-	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+	group = augroup_yank,
 	callback = function()
 		vim.highlight.on_yank({ timeout = 500 })
 	end,
 })
 -- treesitter
-local augroup = vim.api.nvim_create_augroup("nvim.treesitter", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	group = augroup,
+	group = augroup_treesitter,
 	callback = function(ev)
 		local lang = vim.treesitter.language.get_lang(ev.match)
 		if lang and vim.treesitter.language.add(lang) then
@@ -138,11 +144,17 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 -- nvim-treesitter TSUpdate
 vim.api.nvim_create_autocmd("PackChanged", {
-	group = augroup,
+	group = augroup_treesitter,
 	pattern = { "nvim-treesitter" },
 	callback = function()
 		vim.notify("Updating treesitter parsers", vim.log.levels.INFO)
-		require("nvim-treesitter").update(nil, { summary = true }):wait(30 * 1000)
+		vim.schedule(function()
+			local ts = require("nvim-treesitter")
+			local update_promise = ts.update(nil, { summary = true })
+			if update_promise and update_promise.wait then
+				update_promise:wait(30 * 1000)
+			end
+		end)
 	end,
 })
 -- auto recognize server_log.txt
