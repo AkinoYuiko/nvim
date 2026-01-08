@@ -1,12 +1,11 @@
 vim.g.mapleader = " "
 vim.opt.number = true
 vim.opt.cursorline = true
-vim.opt.fillchars = { eob = " " }
 vim.opt.swapfile = false
 vim.opt.wrap = false
 vim.opt.expandtab = true
-vim.opt.tabstop = 2
 vim.opt.shiftwidth = 0
+vim.opt.tabstop = 2
 vim.opt.mouse = "nv"
 vim.opt.scrolloff = 5
 vim.opt.signcolumn = "yes"
@@ -18,7 +17,7 @@ vim.opt.hlsearch = false
 vim.opt.termguicolors = true
 -- Packages --
 vim.pack.add({
-	{ src = "https://github.com/sainnhe/everforest" },
+	{ src = "https://github.com/neanias/everforest-nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
@@ -38,8 +37,11 @@ vim.pack.add({
 	{ src = "https://github.com/Darazaki/indent-o-matic" },
 }, { confirm = false })
 -- Colorscheme
-vim.g.everforest_background = "hard"
-vim.g.everforest_transparent_background = 1
+require("everforest").setup({
+	background = "hard",
+	transparent_background_level = 2,
+	show_eob = false,
+})
 vim.cmd.colorscheme("everforest")
 -- Auto detect indents
 require("indent-o-matic").setup({}) -- sbdx
