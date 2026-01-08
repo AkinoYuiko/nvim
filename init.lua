@@ -118,7 +118,7 @@ end, { desc = "next diagnostic" })
 local augroup_treesitter = vim.api.nvim_create_augroup("nvim.treesitter", { clear = true })
 local augroup_yank = vim.api.nvim_create_augroup("highlight-yank", { clear = true })
 -- Auto Formatting
--- vim.api.nvim_create_autocmd("BufWritePre", { callback = function() vim.lsp.buf.format() end, pattern = "*", })
+-- vim.api.nvim_create_autocmd("BufWritePre", { callback = function() lsp_buf.format() end, pattern = "*", })
 -- Highlight Yanked Texts
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "highlight copying text",
@@ -128,12 +128,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 -- treesitter
+local treesitter = vim.treesitter
+local ts_lang = treesitter.language
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup_treesitter,
 	callback = function(ev)
-		local lang = vim.treesitter.language.get_lang(ev.match)
-		if lang and vim.treesitter.language.add(lang) then
-			if pcall(vim.treesitter.start, ev.buf, lang) then
+		local lang = ts_lang.get_lang(ev.match)
+		if lang and ts_lang.add(lang) then
+			if pcall(treesitter.start, ev.buf, lang) then
 				vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 				vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 				vim.wo.foldmethod = "expr"
@@ -149,8 +151,8 @@ vim.api.nvim_create_autocmd("PackChanged", {
 	callback = function()
 		vim.notify("Updating treesitter parsers", vim.log.levels.INFO)
 		vim.schedule(function()
-			local ts = require("nvim-treesitter")
-			local update_promise = ts.update(nil, { summary = true })
+			local nvim_ts = require("nvim-treesitter")
+			local update_promise = nvim_ts.update(nil, { summary = true })
 			if update_promise and update_promise.wait then
 				update_promise:wait(30 * 1000)
 			end
