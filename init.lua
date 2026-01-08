@@ -128,14 +128,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 -- treesitter
-local treesitter = vim.treesitter
-local ts_lang = treesitter.language
+local ts = vim.treesitter
+local ts_lang = ts.language
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup_treesitter,
 	callback = function(ev)
 		local lang = ts_lang.get_lang(ev.match)
 		if lang and ts_lang.add(lang) then
-			if pcall(treesitter.start, ev.buf, lang) then
+			if pcall(ts.start, ev.buf, lang) then
 				vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 				vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 				vim.wo.foldmethod = "expr"
