@@ -123,7 +123,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 -- Highlight Yanked Texts
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "highlight copying text",
 	group = augroup_yank,
 	callback = function() vim.highlight.on_yank({ timeout = 500 }) end,
 })
