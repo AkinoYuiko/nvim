@@ -15,9 +15,9 @@
       "unnecessary-if"
     ]
   },
-  // "codeAction": {
-  //   "insertSpace": true
-  // },
+  "codeAction": {
+    "insertSpace": true
+  },
   "strict": {
     "typeCall": true,
     "arrayIndex": true
