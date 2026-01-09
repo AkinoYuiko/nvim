@@ -6,7 +6,6 @@ vim.opt.wrap = false
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 0
 vim.opt.tabstop = 2
-vim.opt.modeline = true
 vim.opt.mouse = "nv"
 vim.opt.scrolloff = 5
 vim.opt.signcolumn = "yes"
