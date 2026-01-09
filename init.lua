@@ -156,8 +156,3 @@ vim.api.nvim_create_autocmd("PackChanged", {
 		end)
 	end,
 })
--- auto recognize server_log.txt
-vim.api.nvim_create_autocmd("BufRead", {
-	pattern = "{client_log.txt, client_chat_log.txt, server_log.txt, server_chat_log.txt}",
-	command = "set filetype=log",
-})
