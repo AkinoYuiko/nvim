@@ -119,8 +119,14 @@ keymap_set("n", "]d", function()
 	vim.diagnostic.jump({ wrap = true, count = 1 })
 end, { desc = "next diagnostic" })
 -- AutoCmds --
+local augroup_format = vim.api.nvim_create_augroup("vim.lsp.format", { clear = true })
 local augroup_treesitter = vim.api.nvim_create_augroup("nvim.treesitter", { clear = true })
 local augroup_yank = vim.api.nvim_create_augroup("highlight-yank", { clear = true })
+-- Auto Formatting
+vim.api.nvim_create_autocmd("BufWritePre", {
+	group = augroup_format,
+	callback = function() vim.lsp.buf.format() end,
+})
 -- Highlight Yanked Texts
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "highlight copying text",
