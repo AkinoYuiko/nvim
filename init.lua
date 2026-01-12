@@ -14,7 +14,6 @@ vim.opt.inccommand = "split"
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = false
-vim.opt.termguicolors = true
 -- Packages --
 vim.pack.add({
 	{ src = "https://github.com/neanias/everforest-nvim" },
