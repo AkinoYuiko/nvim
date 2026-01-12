@@ -32,7 +32,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-mini/mini.snippets" },
 	{ src = "https://github.com/nvim-mini/mini.statusline" },
 	{ src = "https://github.com/nvim-mini/mini.tabline" },
-	{ src = "https://github.com/farmergreg/vim-lastplace" },
+	-- { src = "https://github.com/farmergreg/vim-lastplace" },
 	{ src = "https://github.com/Darazaki/indent-o-matic" },
 }, { confirm = false })
 -- Colorscheme
@@ -72,8 +72,6 @@ vim.diagnostic.config({ virtual_text = true })
 vim.filetype.add({ extension = { lsr = "conf" } }) -- .lsr as .conf
 -- Key Mapping --
 local keymap_set = vim.keymap.set
--- Format
-keymap_set("n", "<leader>lf", function() vim.lsp.buf.format() end, { desc = "Format" })
 -- Update
 keymap_set("n", "<leader>up", function() vim.pack.update(nil, { force = true }) end, { desc = "Update packages" })
 -- Personal
@@ -100,15 +98,16 @@ keymap_set("n", "<leader>f", ":Pick files<CR>", { desc = "open file picker" })
 keymap_set("n", "<leader>g", ":Pick grep_live<CR>", { desc = "open grep picker" })
 keymap_set("n", "<leader>h", ":Pick help<CR>", { desc = "open help picker" })
 keymap_set("n", "<leader>b", ":Pick buffers<CR>", { desc = "open buffer picker" })
-keymap_set("n", "<leader>dd", vim.diagnostic.open_float, { desc = "diagnostic messages" })
 -- LSP keymaps
 keymap_set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 keymap_set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
 keymap_set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
 keymap_set("n", "gr", vim.lsp.buf.references, { desc = "Find references" })
-keymap_set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
 keymap_set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
+keymap_set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
+keymap_set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
 -- Fast diagnostic
+keymap_set("n", "<leader>dd", vim.diagnostic.open_float, { desc = "diagnostic messages" })
 keymap_set("n", "[d", function() vim.diagnostic.jump({ wrap = true, count = -1 }) end, { desc = "prev diagnostic" })
 keymap_set("n", "]d", function() vim.diagnostic.jump({ wrap = true, count = 1 }) end, { desc = "next diagnostic" })
 -- AutoCmds --
@@ -126,14 +125,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function() vim.highlight.on_yank({ timeout = 500 }) end,
 })
 -- treesitter
-local ts = vim.treesitter
-local ts_lang = ts.language
+local ts_lang = vim.treesitter.language
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup_treesitter,
 	callback = function(ev)
 		local lang = ts_lang.get_lang(ev.match)
 		if lang and ts_lang.add(lang) then
-			if pcall(ts.start, ev.buf, lang) then
+			if pcall(vim.treesitter.start, ev.buf, lang) then
 				vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 				vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 				vim.wo.foldmethod = "expr"
