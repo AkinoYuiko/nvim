@@ -33,7 +33,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-mini/mini.snippets" },
 	{ src = "https://github.com/nvim-mini/mini.statusline" },
 	{ src = "https://github.com/nvim-mini/mini.tabline" },
-	-- { src = "https://github.com/farmergreg/vim-lastplace" },
+	{ src = "https://github.com/farmergreg/vim-lastplace" },
 	{ src = "https://github.com/Darazaki/indent-o-matic" },
 }, { confirm = false })
 -- Colorscheme
