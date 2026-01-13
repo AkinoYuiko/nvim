@@ -26,7 +26,7 @@ local function package_deffered_fn()
 	})
 	vim.cmd.colorscheme('everforest')
 	-- chdir
-	uc('Chdir', function(args) require('internal.chdir').chdir(args.args == 'silent') end, {
+	uc('Chdir', function(args) require('function.chdir').chdir(args.args == 'silent') end, {
 		nargs = '?',
 		complete = function() return { 'silent' } end,
 	})
@@ -57,9 +57,9 @@ local function package_deffered_fn()
 	end
 	require('keymap')
 	-- Treesitter
-	require('internal.treesitter')
+	require('function.treesitter')
 	-- Mason/LSP
-	require('internal.mason_lsp')
+	require('function.mason_lsp')
 end
 au('BufEnter', {
 	group = group,
