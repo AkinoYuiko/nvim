@@ -1,9 +1,9 @@
 local opt = vim.opt
 opt.number = true
 opt.cursorline = true
-opt.breakindent = true
 opt.swapfile = false
 opt.wrap = false
+opt.linebreak = true
 opt.expandtab = true
 opt.shiftwidth = 0
 opt.tabstop = 2
