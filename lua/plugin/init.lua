@@ -18,9 +18,8 @@ vim.pack.add({
 	{ src = 'https://github.com/nvim-mini/mini.tabline' },
 	{ src = 'https://github.com/j-hui/fidget.nvim' },
 	-- { src = "https://github.com/farmergreg/vim-lastplace" },
-	-- { src = "https://github.com/Darazaki/indent-o-matic" },
+	{ src = 'https://github.com/Darazaki/indent-o-matic' },
 }, { confirm = false })
-
 -- Mini Packs Setup
 local mini_modules = {
 	-- 'ai',
@@ -46,5 +45,7 @@ if ok then
 		map_multistep('i', '<CR>', { 'pmenu_accept', 'minipairs_cr' })
 	end
 end
-
-require("fidget").setup()
+-- fidget
+require('fidget').setup()
+-- indent-o-matic
+require('indent-o-matic').setup({})
