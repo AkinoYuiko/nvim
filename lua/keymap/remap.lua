@@ -36,11 +36,12 @@ map.n({
 	['<A-j>'] = ':m .+1<CR>==',
 	['<A-k>'] = ':m .-2<CR>==',
 	-- File/Package keymaps
-	['<leader>e'] = ':lua MiniFiles.open()<CR>',
-	['<leader>f'] = ':Pick files<CR>',
-	['<leader>g'] = ':Pick grep_live<CR>',
-	['<leader>h'] = ':Pick help<CR>',
-	['<leader>b'] = ':Pick buffers<CR>',
+	['<leader>e'] = cmd('lua MiniFiles.open()'),
+	['<leader>f'] = cmd('Pick files'),
+	['<leader>g'] = cmd('Pick grep_live'),
+	['<leader>h'] = cmd('Pick help'),
+	['<leader>b'] = cmd('Pick buffers'),
+	['<leader>up'] = function() vim.pack.update(nil, { force = true }) end,
 })
 map.nox({
 	[';'] = ':',
