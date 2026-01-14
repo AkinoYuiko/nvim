@@ -8,7 +8,10 @@ au('TextYankPost', {
 })
 
 au('BufRead', {
+	group = vim.api.nvim_create_augroup("last-place",{clear=true}),
 	callback = function()
+		local ft = vim.bo.filetype
+		if ft == "gitcommit" then return end
 		-- Last Place
 		vim.cmd.setlocal('formatoptions-=ro')
 		local pos = vim.fn.getpos('\'"')
