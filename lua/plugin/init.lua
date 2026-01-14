@@ -9,13 +9,14 @@ vim.pack.add({
 	{ src = 'https://github.com/nvim-mini/mini.completion' },
 	{ src = 'https://github.com/nvim-mini/mini.cmdline' },
 	{ src = 'https://github.com/nvim-mini/mini.files' },
-	{ src = 'https://github.com/nvim-mini/mini.icons' },
+	-- { src = 'https://github.com/nvim-mini/mini.icons' },
 	{ src = 'https://github.com/nvim-mini/mini.keymap' },
-	{ src = 'https://github.com/nvim-mini/mini.notify' },
+	-- { src = 'https://github.com/nvim-mini/mini.notify' },
 	{ src = 'https://github.com/nvim-mini/mini.pick' },
 	{ src = 'https://github.com/nvim-mini/mini.snippets' },
 	{ src = 'https://github.com/nvim-mini/mini.statusline' },
 	{ src = 'https://github.com/nvim-mini/mini.tabline' },
+	{ src = 'https://github.com/j-hui/fidget.nvim' },
 	-- { src = "https://github.com/farmergreg/vim-lastplace" },
 	-- { src = "https://github.com/Darazaki/indent-o-matic" },
 }, { confirm = false })
@@ -26,8 +27,8 @@ local mini_modules = {
 	['completion'] = {},
 	['cmdline'] = {},
 	['files'] = { windows = { preview = true } },
-	['icons'] = {},
-	['notify'] = {},
+	-- ['icons'] = {},
+	-- ['notify'] = {},
 	['pick'] = {},
 	['snippets'] = {},
 	['statusline'] = {},
@@ -45,3 +46,5 @@ if ok then
 		map_multistep('i', '<CR>', { 'pmenu_accept', 'minipairs_cr' })
 	end
 end
+
+require("fidget").setup()
