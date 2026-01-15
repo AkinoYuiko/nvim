@@ -26,9 +26,8 @@ local function internal_defferer_fn()
 	})
 	-- keymap
 	require('keymap')
-	-- experimental feat: ext_ui
-	require('vim._extui').enable({})
 end
+
 local function package_deffered_fn()
 	require('plugin')
 	-- Treesitter
@@ -36,6 +35,7 @@ local function package_deffered_fn()
 	-- Mason/LSP
 	require('function.mason_lsp')
 end
+
 au('BufEnter', {
 	group = group,
 	once = true,
