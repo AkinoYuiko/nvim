@@ -260,9 +260,9 @@ h('DiagnosticUnderlineInfo', { undercurl = true, sp = c.blue })
 h('DiagnosticUnderlineHint', { undercurl = true, sp = c.aqua })
 
 h('ErrorMsg', { fg = c.red, bold = true })
-h('WarningMsg', { fg = c.yellow })
-h('MoreMsg', { fg = c.green })
-h('Question', { fg = c.yellow })
+h('WarningMsg', { fg = c.yellow, bold = true })
+h('MoreMsg', { fg = c.green, bold = true })
+h('Question', { fg = c.aqua, bold = true })
 h('ModeMsg', { fg = c.fg, bold = true })
 
 --------------------------------------------------
