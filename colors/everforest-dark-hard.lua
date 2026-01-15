@@ -315,7 +315,6 @@ h('RainbowDelimiterBlue', { fg = c.blue })
 h('RainbowDelimiterViolet', { fg = c.purple })
 h('RainbowDelimiterCyan', { fg = c.aqua })
 
-
 -----------------------------------------------------------------------
 -- LSP semantic tokens
 -----------------------------------------------------------------------
@@ -360,6 +359,66 @@ h('LspReferenceWrite', { bg = c.bg2 })
 h('LspInlayHint', { fg = c.grey0 })
 h('LspCodeLens', { fg = c.grey0 })
 h('LspSignatureActiveParameter', { fg = c.orange, bold = true })
+
+-----------------------------------------------------------------------
+-- Completion UI (nvim-cmp, snippets, ghost text)
+-----------------------------------------------------------------------
+
+-- Completion menu base
+h('CmpItemAbbr', { fg = c.fg })
+h('CmpItemAbbrDeprecated', { fg = c.grey1, strikethrough = true })
+h('CmpItemAbbrMatch', { fg = c.blue, bold = true })
+h('CmpItemAbbrMatchFuzzy', { fg = c.blue, bold = true })
+
+h('CmpItemMenu', { fg = c.grey1 })
+
+-- Kind highlighting (align with LSP / Treesitter semantics)
+h('CmpItemKindText', { fg = c.fg })
+h('CmpItemKindMethod', { fg = c.green })
+h('CmpItemKindFunction', { fg = c.green })
+h('CmpItemKindConstructor', { fg = c.green })
+
+h('CmpItemKindField', { fg = c.fg })
+h('CmpItemKindVariable', { fg = c.fg })
+h('CmpItemKindProperty', { fg = c.fg })
+
+h('CmpItemKindClass', { fg = c.yellow })
+h('CmpItemKindInterface', { fg = c.yellow })
+h('CmpItemKindStruct', { fg = c.yellow })
+h('CmpItemKindEnum', { fg = c.yellow })
+h('CmpItemKindEnumMember', { fg = c.aqua })
+
+h('CmpItemKindModule', { fg = c.yellow })
+h('CmpItemKindNamespace', { fg = c.yellow })
+
+h('CmpItemKindKeyword', { fg = c.red })
+h('CmpItemKindOperator', { fg = c.orange })
+
+h('CmpItemKindConstant', { fg = c.aqua })
+h('CmpItemKindValue', { fg = c.aqua })
+
+h('CmpItemKindString', { fg = c.green })
+h('CmpItemKindNumber', { fg = c.purple })
+h('CmpItemKindBoolean', { fg = c.purple })
+
+h('CmpItemKindFile', { fg = c.blue })
+h('CmpItemKindFolder', { fg = c.blue })
+
+h('CmpItemKindSnippet', { fg = c.purple })
+
+-- Documentation window (fully align with NormalFloat)
+h('CmpDocumentation', { link = 'NormalFloat' })
+h('CmpDocumentationBorder', { link = 'FloatBorder' })
+
+-- Ghost text (inline suggestion)
+h('CmpGhostText', { fg = c.grey0, italic = true })
+
+-- Snippet placeholders (LuaSnip / VSCode style)
+h('SnippetTabstop', { fg = c.orange, underline = true })
+h('SnippetPlaceholder', { fg = c.orange, underline = true })
+
+-- Fallbacks for older configs
+h('CmpItemKindDefault', { fg = c.fg })
 
 -----------------------------------------------------------------------
 -- Diff / Git
@@ -481,64 +540,3 @@ h('WhichKeyDesc', { fg = c.fg })
 h('WhichKeySeparator', { fg = c.grey1 })
 h('WhichKeyFloat', { bg = c.bg0 })
 h('WhichKeyBorder', { fg = c.grey1, bg = c.bg0 })
-
------------------------------------------------------------------------
--- Completion UI (nvim-cmp, snippets, ghost text)
------------------------------------------------------------------------
-
--- Completion menu base
-h('CmpItemAbbr', { fg = c.fg })
-h('CmpItemAbbrDeprecated', { fg = c.grey1, strikethrough = true })
-h('CmpItemAbbrMatch', { fg = c.blue, bold = true })
-h('CmpItemAbbrMatchFuzzy', { fg = c.blue, bold = true })
-
-h('CmpItemMenu', { fg = c.grey1 })
-
--- Kind highlighting (align with LSP / Treesitter semantics)
-h('CmpItemKindText', { fg = c.fg })
-h('CmpItemKindMethod', { fg = c.green })
-h('CmpItemKindFunction', { fg = c.green })
-h('CmpItemKindConstructor', { fg = c.green })
-
-h('CmpItemKindField', { fg = c.fg })
-h('CmpItemKindVariable', { fg = c.fg })
-h('CmpItemKindProperty', { fg = c.fg })
-
-h('CmpItemKindClass', { fg = c.yellow })
-h('CmpItemKindInterface', { fg = c.yellow })
-h('CmpItemKindStruct', { fg = c.yellow })
-h('CmpItemKindEnum', { fg = c.yellow })
-h('CmpItemKindEnumMember', { fg = c.aqua })
-
-h('CmpItemKindModule', { fg = c.yellow })
-h('CmpItemKindNamespace', { fg = c.yellow })
-
-h('CmpItemKindKeyword', { fg = c.red })
-h('CmpItemKindOperator', { fg = c.orange })
-
-h('CmpItemKindConstant', { fg = c.aqua })
-h('CmpItemKindValue', { fg = c.aqua })
-
-h('CmpItemKindString', { fg = c.green })
-h('CmpItemKindNumber', { fg = c.purple })
-h('CmpItemKindBoolean', { fg = c.purple })
-
-h('CmpItemKindFile', { fg = c.blue })
-h('CmpItemKindFolder', { fg = c.blue })
-
-h('CmpItemKindSnippet', { fg = c.purple })
-
--- Documentation window (fully align with NormalFloat)
-h('CmpDocumentation', { link = 'NormalFloat' })
-h('CmpDocumentationBorder', { link = 'FloatBorder' })
-
--- Ghost text (inline suggestion)
-h('CmpGhostText', { fg = c.grey0, italic = true })
-
--- Snippet placeholders (LuaSnip / VSCode style)
-h('SnippetTabstop', { fg = c.orange, underline = true })
-h('SnippetPlaceholder', { fg = c.orange, underline = true })
-
--- Fallbacks for older configs
-h('CmpItemKindDefault', { fg = c.fg })
-
