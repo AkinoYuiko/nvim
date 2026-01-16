@@ -1,6 +1,4 @@
-vim.pack.add({
-	{ src = 'https://github.com/sainnhe/everforest' },
-}, { confirm = false })
+vim.pack.add({ 'https://github.com/sainnhe/everforest' }, { confirm = false })
 -- Colorscheme settings
 vim.g.everforest_background = 'hard'
 vim.g.everforest_float_style = 'blend'

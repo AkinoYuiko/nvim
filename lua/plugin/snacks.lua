@@ -1,6 +1,4 @@
-vim.pack.add({
-	{ src = 'https://github.com/folke/snacks.nvim' },
-}, { confirm = false })
+vim.pack.add({ 'https://github.com/folke/snacks.nvim' }, { confirm = false })
 require('snacks').setup({
 	bigfile = { enabled = true },
 	-- dashboard = { enabled = true },
@@ -129,7 +127,6 @@ require('snacks').setup({
 	},
 })
 require('keymap.snacks')
-
 -- Disable mini.completion in snacks
 vim.api.nvim_create_augroup('user_mini_snacks', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {

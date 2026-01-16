@@ -1,14 +1,14 @@
 vim.pack.add({
-	{ src = 'https://github.com/nvim-mini/mini.completion' },
-	{ src = 'https://github.com/nvim-mini/mini.cmdline' },
-	-- { src = 'https://github.com/nvim-mini/mini.files' },
-	-- { src = 'https://github.com/nvim-mini/mini.icons' },
-	{ src = 'https://github.com/nvim-mini/mini.keymap' },
-	-- { src = 'https://github.com/nvim-mini/mini.notify' },
-	-- { src = 'https://github.com/nvim-mini/mini.pick' },
-	{ src = 'https://github.com/nvim-mini/mini.snippets' },
-	{ src = 'https://github.com/nvim-mini/mini.statusline' },
-	-- { src = 'https://github.com/nvim-mini/mini.tabline' },
+	'https://github.com/nvim-mini/mini.completion',
+	'https://github.com/nvim-mini/mini.cmdline',
+	-- 'https://github.com/nvim-mini/mini.files',
+	-- 'https://github.com/nvim-mini/mini.icons',
+	'https://github.com/nvim-mini/mini.keymap',
+	-- 'https://github.com/nvim-mini/mini.notify',
+	-- 'https://github.com/nvim-mini/mini.pick',
+	'https://github.com/nvim-mini/mini.snippets',
+	'https://github.com/nvim-mini/mini.statusline',
+	-- 'https://github.com/nvim-mini/mini.tabline',
 }, { confirm = false })
 -- Mini Packs Setup
 local mini_modules = {

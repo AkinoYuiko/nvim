@@ -1,12 +1,12 @@
 -- Packages --
 vim.pack.add({
-	{ src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
-	{ src = 'https://github.com/neovim/nvim-lspconfig' },
-	-- { src = 'https://github.com/mason-org/mason.nvim' },
-	-- { src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
-	-- { src = 'https://github.com/j-hui/fidget.nvim' },
-	-- { src = 'https://github.com/vigoux/notifier.nvim' },
-	-- { src = 'https://github.com/Darazaki/indent-o-matic' },
+	'https://github.com/nvim-treesitter/nvim-treesitter',
+	'https://github.com/neovim/nvim-lspconfig',
+	-- 'https://github.com/mason-org/mason.nvim',
+	-- 'https://github.com/mason-org/mason-lspconfig.nvim',
+	-- 'https://github.com/j-hui/fidget.nvim',
+	-- 'https://github.com/vigoux/notifier.nvim',
+	-- 'https://github.com/Darazaki/indent-o-matic',
 }, { confirm = false })
 -- mason
 -- require('mason').setup()
