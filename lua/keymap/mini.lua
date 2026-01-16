@@ -1,6 +1,6 @@
 local keys = {
 	-- File/Package keymaps
-	{ '<leader>e', 'lua MiniFiles.open()<CR>' },
+	{ '<leader>e', MiniFiles.open},
 	{ '<leader>f', ':Pick files<CR>' },
 	{ '<leader>g', ':Pick grep_live<CR>' },
 	{ '<leader>h', ':Pick help<CR>' },

@@ -1,11 +1,11 @@
 vim.pack.add({
 	{ src = 'https://github.com/nvim-mini/mini.completion' },
 	{ src = 'https://github.com/nvim-mini/mini.cmdline' },
-	-- { src = 'https://github.com/nvim-mini/mini.files' },
+	{ src = 'https://github.com/nvim-mini/mini.files' },
 	-- { src = 'https://github.com/nvim-mini/mini.icons' },
 	{ src = 'https://github.com/nvim-mini/mini.keymap' },
 	-- { src = 'https://github.com/nvim-mini/mini.notify' },
-	-- { src = 'https://github.com/nvim-mini/mini.pick' },
+	{ src = 'https://github.com/nvim-mini/mini.pick' },
 	{ src = 'https://github.com/nvim-mini/mini.snippets' },
 	{ src = 'https://github.com/nvim-mini/mini.statusline' },
 	{ src = 'https://github.com/nvim-mini/mini.tabline' },
@@ -14,10 +14,10 @@ vim.pack.add({
 local mini_modules = {
 	['completion'] = {},
 	['cmdline'] = {},
-	-- ['files'] = { windows = { preview = true } },
+	['files'] = { windows = { preview = true } },
 	-- ['icons'] = {},
 	-- ['notify'] = {},
-	-- ['pick'] = {},
+	['pick'] = {},
 	['snippets'] = {},
 	['statusline'] = {},
 	['tabline'] = {},
@@ -35,4 +35,4 @@ if ok then
 	end
 end
 
--- require('keymap.mini')
+require('keymap.mini')
