@@ -31,8 +31,8 @@ require('snacks').setup({
 			-- wo = { wrap = true } -- Wrap notifications
 		},
 	},
-	toggle = { enabled = true },
-	zen = { enabled = true },
+	-- toggle = { enabled = true },
+	-- zen = { enabled = true },
 	picker = {
 		sources = {
 			files = {
