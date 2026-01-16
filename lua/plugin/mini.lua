@@ -9,7 +9,7 @@ vim.pack.add({
 	{ src = 'https://github.com/nvim-mini/mini.snippets' },
 	{ src = 'https://github.com/nvim-mini/mini.statusline' },
 	{ src = 'https://github.com/nvim-mini/mini.tabline' },
-}, {confirm=false})
+}, { confirm = false })
 -- Mini Packs Setup
 local mini_modules = {
 	['completion'] = {},
