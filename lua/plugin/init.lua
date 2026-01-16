@@ -7,6 +7,9 @@ vim.pack.add({
 	{ src = 'https://github.com/j-hui/fidget.nvim' },
 	{ src = 'https://github.com/Darazaki/indent-o-matic' },
 }, { confirm = false })
+-- mason
+require('mason').setup()
+require('mason-lspconfig').setup()
 -- fidget
 require('fidget').setup()
 -- indent-o-matic
