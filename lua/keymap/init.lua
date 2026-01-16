@@ -4,8 +4,8 @@ local map = require('core.keymap')
 
 map.n({
 	-- code_running
-	['<F5>'] = function() require('internal.code_running').running(false) end,
-	['<F10>'] = function() require('internal.code_running').running(true) end,
+	-- ['<F5>'] = function() require('internal.code_running').running(false) end,
+	-- ['<F10>'] = function() require('internal.code_running').running(true) end,
 	-- surround
 	['cs'] = function() require('internal.surround').change_surround() end,
 	-- invert_word

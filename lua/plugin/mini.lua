@@ -8,7 +8,7 @@ vim.pack.add({
 	-- 'https://github.com/nvim-mini/mini.pick',
 	'https://github.com/nvim-mini/mini.snippets',
 	'https://github.com/nvim-mini/mini.statusline',
-	-- 'https://github.com/nvim-mini/mini.tabline',
+	'https://github.com/nvim-mini/mini.tabline',
 }, { confirm = false })
 -- Mini Packs Setup
 local mini_modules = {
@@ -20,7 +20,7 @@ local mini_modules = {
 	-- ['pick'] = {},
 	['snippets'] = {},
 	['statusline'] = {},
-	-- ['tabline'] = {},
+	['tabline'] = {},
 }
 for mod, opts in pairs(mini_modules) do
 	require('mini.' .. mod).setup(opts)
