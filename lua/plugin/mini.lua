@@ -20,7 +20,7 @@ local mini_modules = {
 	['pick'] = {},
 	['snippets'] = {},
 	['statusline'] = {},
-	['tabline'] = {},
+	-- ['tabline'] = {},
 }
 for mod, opts in pairs(mini_modules) do
 	require('mini.' .. mod).setup(opts)
