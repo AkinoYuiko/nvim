@@ -12,6 +12,15 @@ local lsp_tbl = {
 }
 vim.lsp.enable(lsp_tbl)
 vim.diagnostic.config({ virtual_text = true })
-vim.filetype.add({ extension = { lsr = 'conf' } }) -- .lsr as .conf
+vim.filetype.add({
+	extension = {
+		['lsr'] = 'conf',
+		['yaml.docker-compose'] = 'yaml',
+		['yaml.gitlab'] = 'yaml',
+		['yaml.helm-values'] = 'yaml',
+		['javascript.jsx'] = 'javascriptreact',
+		['typescript.tsx'] = 'typescriptreact',
+	},
+}) -- .lsr as .conf
 
 require('keymap.lsp')
