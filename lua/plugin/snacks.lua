@@ -4,3 +4,4 @@ vim.pack.add({
 require('snacks').setup({
 	notify = { enabled = true },
 })
+require('keymap.snacks')
