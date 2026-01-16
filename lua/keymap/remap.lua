@@ -11,7 +11,7 @@ map({
 	{ 'B', cmd('bd') },
 	-- {'ca', cmd('silent %y+'),},
 	{ '<leader>sc', cmd('set spell! spell?') },
-	-- {'<leader>sl', cmd('set list! list?'),},
+	{'<leader>sl', cmd('set list! list?'),},
 	{ '<leader>sm', cmd('set number! number?') },
 	{ '<leader>sw', cmd('set wrap! wrap?') },
 	{ '<leader><cr>', cmd('noh') },

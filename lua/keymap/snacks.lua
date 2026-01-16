@@ -5,7 +5,10 @@ require('core.keymap').map({
 	{ '<leader>/', function() Snacks.picker.grep() end, desc = 'Grep' },
 	{ '<leader>:', function() Snacks.picker.command_history() end, desc = 'Command History' },
 	-- { '<leader>n', function() Snacks.picker.notifications() end, desc = 'Notification History' },
+	-- explorer
 	{ '<leader>e', function() Snacks.explorer() end, desc = 'File Explorer' },
+	-- help
+	{ '<leader>h', function() Snacks.picker.help() end, desc = 'Help Pages' },
 	-- find
 	{ '<leader>f', function() Snacks.picker.files() end, desc = 'Find Files' },
 	-- { '<leader>fb', function() Snacks.picker.buffers() end, desc = 'Buffers' },
@@ -41,12 +44,11 @@ require('core.keymap').map({
 	-- { '<leader>sC', function() Snacks.picker.commands() end, desc = 'Commands' },
 	{ '<leader>sd', function() Snacks.picker.diagnostics() end, desc = 'Diagnostics' },
 	{ '<leader>sD', function() Snacks.picker.diagnostics_buffer() end, desc = 'Buffer Diagnostics' },
-	{ '<leader>sh', function() Snacks.picker.help() end, desc = 'Help Pages' },
 	-- { '<leader>sH', function() Snacks.picker.highlights() end, desc = 'Highlights' },
 	-- { '<leader>si', function() Snacks.picker.icons() end, desc = 'Icons' },
-	{ '<leader>sj', function() Snacks.picker.jumps() end, desc = 'Jumps' },
-	{ '<leader>sk', function() Snacks.picker.keymaps() end, desc = 'Keymaps' },
-	{ '<leader>sl', function() Snacks.picker.loclist() end, desc = 'Location List' },
+	{ '<leader>sJ', function() Snacks.picker.jumps() end, desc = 'Jumps' },
+	{ '<leader>sK', function() Snacks.picker.keymaps() end, desc = 'Keymaps' },
+	{ '<leader>sL', function() Snacks.picker.loclist() end, desc = 'Location List' },
 	{ '<leader>sm', function() Snacks.picker.marks() end, desc = 'Marks' },
 	-- { '<leader>sM', function() Snacks.picker.man() end, desc = 'Man Pages' },
 	-- { '<leader>sp', function() Snacks.picker.lazy() end, desc = 'Search for Plugin Spec' },
