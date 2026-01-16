@@ -1,10 +1,10 @@
 local keys = {
 	-- File/Package keymaps
-	{ '<leader>e', MiniFiles.open},
+	{ '<leader>e', ':lua MiniFiles.open()<CR>'},
 	{ '<leader>f', ':Pick files<CR>' },
 	-- { '<leader>g', ':Pick grep_live<CR>' },
 	{ '<leader>h', ':Pick help<CR>' },
-	-- { '<leader>b', ':Pick buffers<CR>' },
+	{ '<leader>b', ':Pick buffers<CR>' },
 }
 
 local keymap_set = vim.keymap.set

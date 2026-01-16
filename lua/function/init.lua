@@ -41,7 +41,7 @@ au('BufEnter', {
 	once = true,
 	callback = function()
 		-- vim.cmd.colorscheme('everforest-dark-hard')
-		require('plugin.everforest')
+		-- require('plugin.everforest')
 		vim.defer_fn(package_deffered_fn, 0)
 		vim.defer_fn(internal_defferer_fn, 0)
 	end,
