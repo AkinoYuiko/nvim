@@ -27,10 +27,10 @@ local keys = {
 	-- { '<leader>gp', function() Snacks.picker.gh_pr() end, desc = 'GitHub Pull Requests (open)' },
 	-- { '<leader>gP', function() Snacks.picker.gh_pr({ state = 'all' }) end, desc = 'GitHub Pull Requests (all)' },
 	-- Grep
-	{ '<leader>sb', function() Snacks.picker.lines() end, desc = 'Buffer Lines' },
-	{ '<leader>sB', function() Snacks.picker.grep_buffers() end, desc = 'Grep Open Buffers' },
+	-- { '<leader>sb', function() Snacks.picker.lines() end, desc = 'Buffer Lines' },
+	-- { '<leader>sB', function() Snacks.picker.grep_buffers() end, desc = 'Grep Open Buffers' },
 	{ '<leader>sg', function() Snacks.picker.grep() end, desc = 'Grep' },
-	{ '<leader>sw', function() Snacks.picker.grep_word() end, desc = 'Visual selection or word', mode = { 'n', 'x' } },
+	-- { '<leader>sw', function() Snacks.picker.grep_word() end, desc = 'Visual selection or word', mode = { 'n', 'x' } },
 	-- search
 	-- { '<leader>s"', function() Snacks.picker.registers() end, desc = 'Registers' },
 	-- { '<leader>s/', function() Snacks.picker.search_history() end, desc = 'Search History' },
@@ -100,5 +100,5 @@ local keys = {
 local keymap_set = vim.keymap.set
 for _, map in ipairs(keys) do
 	if type(map) ~= 'table' then return end
-	keymap_set('n', map[1], map[2], map[3])
+	keymap_set(map.mode or 'n', map[1], map[2], { desc = map.desc })
 end
