@@ -34,3 +34,5 @@ if ok then
 		map_multistep('i', '<CR>', { 'pmenu_accept', 'minipairs_cr' })
 	end
 end
+
+-- require('keymap.mini')
