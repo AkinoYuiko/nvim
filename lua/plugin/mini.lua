@@ -3,10 +3,11 @@ vim.pack.add({ 'https://github.com/nvim-mini/mini.nvim' }, { confirm = false })
 local mini_modules = {
 	['completion'] = {},
 	['cmdline'] = {},
-	-- ['files'] = { windows = { preview = true } },
+	['extra'] = {},
+	['files'] = { windows = { preview = true } },
 	-- ['icons'] = {},
 	-- ['notify'] = {},
-	-- ['pick'] = {},
+	['pick'] = {},
 	['snippets'] = {},
 	['statusline'] = {},
 	['tabline'] = {},
