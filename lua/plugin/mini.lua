@@ -3,14 +3,14 @@ vim.pack.add({ 'https://github.com/nvim-mini/mini.nvim' }, { confirm = false })
 local mini_modules = {
 	['completion'] = {},
 	['cmdline'] = {},
-	['extra'] = {},
-	['files'] = { windows = { preview = true } },
+	-- ['extra'] = {},
+	-- ['files'] = { windows = { preview = true } },
 	-- ['icons'] = {},
 	-- ['notify'] = {},
-	['pick'] = {},
+	-- ['pick'] = {},
 	['snippets'] = {},
 	['statusline'] = {},
-	['tabline'] = {},
+	-- ['tabline'] = {},
 }
 for mod, opts in pairs(mini_modules) do
 	require('mini.' .. mod).setup(opts)
@@ -24,7 +24,8 @@ if ok then
 		map_multistep('i', '<CR>', { 'pmenu_accept', 'minipairs_cr' })
 	end
 end
-require('keymap.mini')
+-- mini pick keymap
+-- require('keymap.mini')
 -- Disable mini.completion in snacks
 vim.api.nvim_create_augroup('user_mini_snacks', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
