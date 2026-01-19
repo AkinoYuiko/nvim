@@ -2,13 +2,13 @@ vim.pack.add({ 'https://github.com/folke/snacks.nvim' }, { confirm = false })
 require('snacks').setup({
 	bigfile = { enabled = true },
 	-- dashboard = { enabled = true },
-	explorer = { enabled = true },
+	-- explorer = { enabled = true },
 	-- indent = { enabled = true },
 	input = { enabled = true },
-	notifier = {
-		enabled = true,
-		timeout = 3000,
-	},
+	-- notifier = {
+	-- 	enabled = true,
+	-- 	timeout = 3000,
+	-- },
 	quickfile = { enabled = true },
 	rename = { enabled = true },
 	scope = { enabled = true },
