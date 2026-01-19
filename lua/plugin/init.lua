@@ -6,15 +6,12 @@ vim.pack.add({
 	'https://github.com/mason-org/mason.nvim',
 	'https://github.com/mason-org/mason-lspconfig.nvim',
 	-- 'https://github.com/j-hui/fidget.nvim',
-	-- 'https://github.com/vigoux/notifier.nvim',
 	-- 'https://github.com/Darazaki/indent-o-matic',
-	'https://github.com/folke/which-key.nvim',
+	-- 'https://github.com/folke/which-key.nvim',
 }, { confirm = false })
 -- mason
 require('mason').setup()
 require('mason-lspconfig').setup()
--- notifier
--- require('notifier').setup({})
 -- fidget
 -- require('fidget').setup({
 -- 	notification = {
@@ -25,7 +22,3 @@ require('mason-lspconfig').setup()
 -- require('indent-o-matic').setup({})
 -- mini.packs
 require('plugin.mini')
--- Snacks
--- require('plugin.snacks')
--- require('nvim-gitui').setup({ keymaps = { n = '<leader>G' } })
-require('which-key').setup()
