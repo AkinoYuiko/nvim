@@ -2,7 +2,7 @@
 vim.pack.add({
 	'https://github.com/nvim-treesitter/nvim-treesitter',
 	'https://github.com/neovim/nvim-lspconfig',
-	'https://github.com/mikinovation/nvim-gitui',
+	-- 'https://github.com/mikinovation/nvim-gitui',
 	'https://github.com/mason-org/mason.nvim',
 	'https://github.com/mason-org/mason-lspconfig.nvim',
 	-- 'https://github.com/j-hui/fidget.nvim',
@@ -26,4 +26,4 @@ require('mason-lspconfig').setup()
 require('plugin.mini')
 -- Snacks
 -- require('plugin.snacks')
-require('nvim-gitui').setup({ keymaps = { n = '<leader>G' } })
+-- require('nvim-gitui').setup({ keymaps = { n = '<leader>G' } })
