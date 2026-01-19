@@ -5,7 +5,7 @@ local mini_modules = {
 	['cmdline'] = {},
 	-- ['extra'] = {},
 	-- ['files'] = { windows = { preview = true } },
-	-- ['icons'] = {},
+	['icons'] = {},
 	-- ['notify'] = {},
 	-- ['pick'] = {},
 	['snippets'] = {},
