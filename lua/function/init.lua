@@ -8,6 +8,7 @@ au('TextYankPost', {
 })
 
 au('BufRead', {
+	group = group,
 	callback = function()
 		local fname = vim.fn.expand('%:t')
 		if not fname:match('^COMMIT_EDITMSG$') then
@@ -30,9 +31,7 @@ end
 
 local function package_deffered_fn()
 	require('plugin')
-	-- Treesitter
-	-- require('function.treesitter')
-	-- Mason/LSP
+	-- LSP
 	require('function.lsp')
 end
 
@@ -40,14 +39,14 @@ au('VimEnter', {
 	group = group,
 	once = true,
 	callback = function()
-		-- vim.cmd.colorscheme('everforest-dark-hard')
-		-- require('plugin.everforest')
 		vim.defer_fn(package_deffered_fn, 0)
 		vim.defer_fn(internal_defferer_fn, 0)
 	end,
 })
--- load colorscheme and snacks
+
+-- load colorscheme
 require('plugin.everforest')
+-- load snacks
 require('plugin.snacks')
 -- load treesitter autocmd
 require('function.treesitter')
