@@ -23,9 +23,11 @@ au('PackChanged', {
 	callback = function()
 		vim.notify('Updating treesitter parsers', vim.log.levels.INFO)
 		vim.schedule(function()
-			local nvim_ts = require('nvim-treesitter')
-			local update_promise = nvim_ts.update(nil, { summary = true })
-			if update_promise and update_promise.wait then update_promise:wait(30 * 1000) end
+			local nts = require('nvim-treesitter')
+			if nts ~= nil then
+				local update_promise = nts.update(nil, { summary = true })
+				if update_promise and update_promise.wait then update_promise:wait(30 * 1000) end
+			end
 		end)
 	end,
 })
