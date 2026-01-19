@@ -6,7 +6,7 @@ local mini_modules = {
 	-- ['files'] = { windows = { preview = true } },
 	-- ['icons'] = {},
 	-- ['notify'] = {},
-	['pick'] = {},
+	-- ['pick'] = {},
 	['snippets'] = {},
 	['statusline'] = {},
 	['tabline'] = {},
