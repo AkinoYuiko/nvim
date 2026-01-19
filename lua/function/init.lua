@@ -31,7 +31,7 @@ end
 local function package_deffered_fn()
 	require('plugin')
 	-- Treesitter
-	require('function.treesitter')
+	-- require('function.treesitter')
 	-- Mason/LSP
 	require('function.lsp')
 end
@@ -46,3 +46,5 @@ au('VimEnter', {
 		vim.defer_fn(internal_defferer_fn, 0)
 	end,
 })
+
+require('function.treesitter')
