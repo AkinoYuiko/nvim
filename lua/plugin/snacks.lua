@@ -129,12 +129,14 @@ require('snacks').setup({
 	bigfile = { enabled = true },
 	indent = { enabled = true },
 	input = { enabled = true },
-	-- notifier = { enabled = true },
 	quickfile = { enabled = true },
 	scope = { enabled = true },
-	scroll = { enabled = true },
+	scroll = {
+		enabled = true,
+		animate = { duration = { step = 6, total = 60 } },
+		animate_repeat = { delay = 30, duration = { step = 3, total = 30 } },
+	},
 	statuscolumn = { enabled = true },
 	styles = { notification = { wo = { wrap = true } } },
-	-- toggle = { map = LazyVim.safe_keymap_set },
 	words = { enabled = true },
 })
