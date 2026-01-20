@@ -5,5 +5,6 @@ require('core.keymap').map({
 	{ '<leader>/', function() MiniPick.builtin.grep_live() end, desc = 'open mini.pick grep' },
 	{ '<leader>h', function() MiniPick.builtin.help() end, desc = 'open mini.pick help' },
 	{ '<leader>b', function() MiniPick.builtin.buffers() end, desc = 'open mini.pick buffers' },
-	{ '<leader>:', function() MiniExtra.pickers.history() end, desc = 'open mini.pick buffers' },
+	{ '<leader>:', function() MiniExtra.pickers.history() end, desc = 'open mini.pick command history' },
+	{ '<leader>,', function() MiniExtra.pickers.git_files() end, desc = 'open mini.pick git files' },
 })
