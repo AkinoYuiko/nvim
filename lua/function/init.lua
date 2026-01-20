@@ -6,7 +6,7 @@ au('TextYankPost', {
 	group = group,
 	callback = function() vim.hl.on_yank({ higroup = 'Visual', timeout = 200 }) end,
 })
-
+-- Last place
 au('BufRead', {
 	group = group,
 	callback = function()
@@ -15,6 +15,22 @@ au('BufRead', {
 			vim.cmd.setlocal('formatoptions-=ro')
 			local pos = vim.fn.getpos('\'"')
 			if pos[2] > 0 and pos[2] <= vim.fn.line('$') then vim.api.nvim_win_set_cursor(0, { pos[2], pos[3] - 1 }) end
+		end
+	end,
+})
+-- Treesitter
+au('FileType', {
+	group = group,
+	callback = function(ev)
+		local ts_lang = vim.treesitter.language
+		local lang = ts_lang.get_lang(ev.match)
+		if lang and ts_lang.add(lang) then
+			if pcall(vim.treesitter.start, ev.buf) then
+				vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+				vim.wo.foldmethod = 'expr'
+				vim.wo.foldlevel = 99
+			end
 		end
 	end,
 })
@@ -45,4 +61,3 @@ au('VimEnter', {
 })
 require('plugin.snacks')
 require('plugin.everforest')
-require('function.treesitter')
