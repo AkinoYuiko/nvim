@@ -16,7 +16,7 @@ for mod, opts in pairs(mini_modules) do
 	require('mini.' .. mod).setup(opts)
 end
 -- copied from LazyVim, to handle skip_opts
-require('util.mini').pairs({
+require('internal.util.mini').pairs({
 	modes = { insert = true, command = true, terminal = false },
 	skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
 	skip_ts = { 'string' },
