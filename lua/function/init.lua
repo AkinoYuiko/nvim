@@ -4,7 +4,7 @@ local group = vim.api.nvim_create_augroup('momoGroup', {})
 -- Highlight Yanked Texts
 au('TextYankPost', {
 	group = group,
-	callback = function() vim.highlight.on_yank({ higroup = 'Visual', timeout = 200 }) end,
+	callback = function() vim.hl.on_yank({ higroup = 'Visual', timeout = 200 }) end,
 })
 
 au('BufRead', {
@@ -43,10 +43,6 @@ au('VimEnter', {
 		vim.defer_fn(internal_defferer_fn, 0)
 	end,
 })
-
--- load colorscheme
-require('plugin.everforest')
--- load snacks
 require('plugin.snacks')
--- load treesitter autocmd
+require('plugin.everforest')
 require('function.treesitter')

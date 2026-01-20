@@ -1,8 +1,5 @@
-local au = vim.api.nvim_create_autocmd
--- vim.treesitter
-local augroup_treesitter = vim.api.nvim_create_augroup('nvim.treesitter', { clear = true })
-au('FileType', {
-	group = augroup_treesitter,
+vim.api.nvim_create_autocmd('FileType', {
+	group = vim.api.nvim_create_augroup('vim.treesitter', { clear = true }),
 	callback = function(ev)
 		local ts_lang = vim.treesitter.language
 		local lang = ts_lang.get_lang(ev.match)
@@ -14,20 +11,5 @@ au('FileType', {
 				vim.wo.foldlevel = 99
 			end
 		end
-	end,
-})
--- nvim-treesitter TSUpdate
-au('PackChanged', {
-	group = augroup_treesitter,
-	pattern = { 'nvim-treesitter' },
-	callback = function()
-		vim.notify('Updating treesitter parsers', vim.log.levels.INFO)
-		vim.schedule(function()
-			local nts = require('nvim-treesitter')
-			if nts ~= nil then
-				local update_promise = nts.update(nil, { summary = true })
-				if update_promise and update_promise.wait then update_promise:wait(30 * 1000) end
-			end
-		end)
 	end,
 })
