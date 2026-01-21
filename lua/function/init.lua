@@ -26,8 +26,8 @@ au('FileType', {
 		local lang = ts_lang.get_lang(ev.match)
 		if lang and ts_lang.add(lang) then
 			if pcall(vim.treesitter.start, ev.buf) then
-				vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-				vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+				vim.bo[ev.buf].indentexpr = 'v:lua.momo.treesitter.indentexpr()'
+				vim.wo.foldexpr = 'v:lua.momo.treesitter.foldexpr()'
 				vim.wo.foldmethod = 'expr'
 			end
 		end
