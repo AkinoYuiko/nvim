@@ -2,6 +2,8 @@ local map = require('core.keymap').map
 local cmd = require('core.keymap').cmd
 map({
 	{ '<space>', '<Nop>' },
+	-- fast command
+	{ ';', ':', mode = { 'n', 'o', 'x' } },
 	-- fast move to line begin/end
 	{ 'H', '^', mode = { 'n', 'o', 'x' } },
 	{ 'L', 'g_', mode = { 'n', 'o', 'x' } },
@@ -16,15 +18,21 @@ map({
 	{ '<leader>w', cmd('set wrap! wrap?') },
 	{ '<leader><cr>', cmd('noh') },
 	-- {'<leader><leader>', '/<++><CR>:noh<CR>"_c4l',},
-	{ 'j', 'gj' },
-	{ 'k', 'gk' },
-	{ 'J', '<c-d>' },
-	{ 'K', '<c-u>' },
+	{ 'j', 'gj', noremap = true },
+	{ 'k', 'gk', noremap = true },
+	{ 'J', '<c-d>', noremap = true },
+	{ 'K', '<c-u>', noremap = true },
 	-- window
 	{ '<C-h>', '<C-w>h' },
 	{ '<C-j>', '<C-w>j' },
 	{ '<C-k>', '<C-w>k' },
 	{ '<C-l>', '<C-w>l' },
+	-- Keep current search result centered on the screen
+	-- { 'n', 'nzz', noremap = true },
+	-- { 'N', 'Nzz', noremap = true },
+	-- stay in visual after <,>
+	{ '<', '<gv', mode = 'v' },
+	{ '>', '>gv', mode = 'v' },
 	-- { '<leader>W', '<c-w>w' },
 	{ '<leader>sh', cmd('set nosplitright | vsplit') },
 	{ '<leader>sj', cmd('set splitbelow | split') },
@@ -36,13 +44,9 @@ map({
 	{ '<leader>vim', cmd('edit ' .. vim.fn.stdpath('config') .. '/init.lua | Chdir silent') },
 	-- update all packs
 	{ '<leader>up', function() vim.pack.update(nil, { force = true }) end },
-	-- fast command
-	{ ';', ':', mode = { 'n', 'o', 'x' } },
 	-- Line Move
-	{ '<A-j>', ':m .+1<CR>==' },
-	{ '<A-k>', ':m .-2<CR>==' },
-	{ '<A-j>', ":m '>+1<CR>gv=gv", mode = { 'n', 'o', 'x' } },
-	{ '<A-k>', ":m '<-2<CR>gv=gv", mode = { 'n', 'o', 'x' } },
+	{ 'J', "<cmd>m '>+1<CR>gv=gv", mode = 'v' },
+	{ 'K', "<cmd>m '<-2<CR>gv=gv", mode = 'v' },
 	-- fast Norm in visual
 	{ 'N', ':norm ', mode = { 'v' } },
 	-- systemd-wide yank, cut and paste
