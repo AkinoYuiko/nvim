@@ -8,7 +8,7 @@ vim.pack.add({ 'https://github.com/nvim-treesitter/nvim-treesitter' }, {
 			group = group,
 			once = true,
 			callback = function()
-				vim.schedule(function()
+				vim.defer_fn(function()
 					vim.cmd.packadd(pack.spec.name)
 					momo.treesitter.get_installed(true)
 					au('PackChanged', {
@@ -23,7 +23,7 @@ vim.pack.add({ 'https://github.com/nvim-treesitter/nvim-treesitter' }, {
 							end)
 						end,
 					})
-				end)
+				end, 0)
 			end,
 		})
 	end,
