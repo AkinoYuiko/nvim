@@ -1,13 +1,13 @@
 local au = vim.api.nvim_create_autocmd
 local uc = vim.api.nvim_create_user_command
-local group = vim.api.nvim_create_augroup('momoGroup', {})
+local group = vim.api.nvim_create_augroup('momoGroup', { clear = true })
 -- Highlight Yanked Texts
 au('TextYankPost', {
 	group = group,
-	callback = function() vim.hl.on_yank({ higroup = 'Visual', timeout = 200 }) end,
+	callback = function() vim.hl.on_yank({ timeout = 300 }) end,
 })
 -- Last place
-au('BufRead', {
+au('BufReadPost', {
 	group = group,
 	callback = function()
 		local fname = vim.fn.expand('%:t')
@@ -35,30 +35,19 @@ au('FileType', {
 		end
 	end,
 })
-
-local function internal_defferer_fn()
-	-- chdir
-	uc('Chdir', function(args) require('internal.chdir').chdir(args.args == 'silent') end, {
-		nargs = '?',
-		complete = function() return { 'silent' } end,
-	})
-	-- keymap
-	require('keymap')
-end
-
-local function package_deffered_fn()
-	require('plugin')
-	-- LSP
-	require('function.lsp')
-end
-
+-- Internal fn
 au('VimEnter', {
 	group = group,
 	once = true,
 	callback = function()
-		vim.defer_fn(package_deffered_fn, 0)
-		vim.defer_fn(internal_defferer_fn, 0)
+		vim.defer_fn(function()
+			-- chdir
+			uc('Chdir', function(args) require('internal.chdir').chdir(args.args == 'silent') end, {
+				nargs = '?',
+				complete = function() return { 'silent' } end,
+			})
+			-- keymap
+			require('keymap')
+		end, 0)
 	end,
 })
-require('plugin.snacks')
-require('plugin.everforest')
