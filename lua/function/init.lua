@@ -22,14 +22,16 @@ au('BufRead', {
 au('FileType', {
 	group = group,
 	callback = function(ev)
-		local ts_lang = vim.treesitter.language
-		local lang = ts_lang.get_lang(ev.match)
-		if lang and ts_lang.add(lang) then
-			if pcall(vim.treesitter.start, ev.buf) then
-				vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-				vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-				vim.wo.foldmethod = 'expr'
-			end
+		local ft = ev.match
+		local uts = require('util.treesitter')
+		if not uts.have(ft) then return end
+		---@param query string
+		local function enabled(query) return uts.have(ft, query) end
+		if enabled('highlights') then pcall(vim.treesitter.start, ev.buf) end
+		if enabled('indents') then vim.bo[ev.buf].indentexpr = "v:lua.require'util.treesitter'.indentexpr()" end
+		if enabled('folds') then
+			vim.wo.foldmethod = 'expr'
+			vim.wo.foldexpr = "v:lua.require'util.treesitter'.indentexpr()"
 		end
 	end,
 })
