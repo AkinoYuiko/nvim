@@ -5,3 +5,5 @@ vim.g.loaded_ruby_provider = 0
 -- experimental feat: ext_ui
 require('vim._extui').enable({})
 require('core.options')
+
+_G.momo = require('util')
