@@ -22,10 +22,9 @@ au('BufReadPost', {
 au('FileType', {
 	group = group,
 	callback = function(ev)
-		local ts_lang = vim.treesitter.language
-		local lang = ts_lang.get_lang(ev.match)
-		if lang and ts_lang.add(lang) then
-			if pcall(vim.treesitter.start, ev.buf) then
+		local lang = vim.treesitter.language.get_lang(ev.match)
+		if lang and vim.treesitter.language.add(lang) then
+			if pcall(vim.treesitter.start) then
 				if vim.treesitter.query.get(lang, 'indents') then
 					vim.bo[ev.buf].indentexpr = 'v:lua.momo.treesitter.indentexpr()'
 				end
