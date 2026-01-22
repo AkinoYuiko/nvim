@@ -26,10 +26,10 @@ au('FileType', {
 		if lang and vim.treesitter.language.add(lang) then
 			if pcall(vim.treesitter.start) then
 				if vim.treesitter.query.get(lang, 'indents') then
-					vim.bo[ev.buf].indentexpr = 'v:lua.momo.treesitter.indentexpr()'
+					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.treesitter.indentexpr()"
 				end
 				if vim.treesitter.query.get(lang, 'folds') then
-					vim.wo.foldexpr = 'v:lua.momo.treesitter.foldexpr()'
+					vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 					vim.wo.foldmethod = 'expr'
 				end
 			end

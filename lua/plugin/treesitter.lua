@@ -10,7 +10,6 @@ vim.pack.add({ 'https://github.com/nvim-treesitter/nvim-treesitter' }, {
 			callback = function()
 				vim.defer_fn(function()
 					vim.cmd.packadd(pack.spec.name)
-					momo.treesitter.get_installed(true)
 					au('PackChanged', {
 						group = group,
 						pattern = { 'nvim-treesitter' },
@@ -19,7 +18,6 @@ vim.pack.add({ 'https://github.com/nvim-treesitter/nvim-treesitter' }, {
 							vim.schedule(function()
 								local update_promise = require('nvim-treesitter').update(nil, { summary = true })
 								if update_promise and update_promise.wait then update_promise:wait(30 * 1000) end
-								momo.treesitter.get_installed(true)
 							end)
 						end,
 					})
