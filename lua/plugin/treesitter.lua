@@ -4,11 +4,11 @@ vim.pack.add({ 'https://github.com/nvim-treesitter/nvim-treesitter' }, {
 	confirm = false,
 	load = function(pack)
 		-- nvim-treesitter
-		au('BufReadPost', {
+		au({ 'BufReadPost', 'BufNewFile' }, {
 			group = group,
 			once = true,
 			callback = function()
-				vim.defer_fn(function()
+				vim.schedule(function()
 					vim.cmd.packadd(pack.spec.name)
 					au('PackChanged', {
 						group = group,
@@ -21,7 +21,7 @@ vim.pack.add({ 'https://github.com/nvim-treesitter/nvim-treesitter' }, {
 							end)
 						end,
 					})
-				end, 0)
+				end)
 			end,
 		})
 	end,

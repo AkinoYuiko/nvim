@@ -44,7 +44,7 @@ vim.pack.add({
 }, {
 	confirm = false,
 	load = function()
-		vim.api.nvim_create_autocmd('BufReadPost', {
+		vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
 			group = vim.api.nvim_create_augroup('mason-lspconfig', { clear = true }),
 			once = true,
 			callback = function()
