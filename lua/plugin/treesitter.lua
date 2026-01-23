@@ -4,7 +4,7 @@ vim.pack.add({ 'https://github.com/nvim-treesitter/nvim-treesitter' }, {
 	confirm = false,
 	load = function(pack)
 		-- nvim-treesitter
-		au({ 'BufReadPost', 'BufNewFile' }, {
+		au('VimEnter', {
 			group = group,
 			once = true,
 			callback = function()
