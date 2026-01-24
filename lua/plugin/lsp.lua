@@ -1,14 +1,11 @@
 local function lsp_setup_fn()
 	local lsp_tbl = {
-		-- 'bashls',
+		-- lua
 		'emmylua_ls',
-		-- 'fish_lsp',
-		'jsonls',
-		'rust_analyzer',
 		'stylua',
-		-- 'tinymist',
+		-- common config filetypes
+		'jsonls',
 		'tombi',
-		-- 'ts_ls',
 		'yamlls',
 	}
 	vim.lsp.enable(lsp_tbl)
