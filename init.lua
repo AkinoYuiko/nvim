@@ -1,154 +1,193 @@
-vim.g.mapleader = " "
-vim.opt.number = true
-vim.opt.cursorline = true
-vim.opt.fillchars = { eob = " " }
-vim.opt.swapfile = false
-vim.opt.wrap = false
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 0
-vim.opt.mouse = ""
-vim.opt.scrolloff = 5
-vim.opt.signcolumn = "yes"
-vim.opt.winborder = "rounded"
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldenable = false
-vim.opt.termguicolors = true
--- lazy.nvim --
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+vim.loader.enable()
+vim.g.mapleader = ' '
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+-- ext ui
+require('vim._extui').enable({})
+-- options
+local opt = vim.opt
+opt.number = true
+opt.signcolumn = 'yes'
+opt.cursorline = true
+opt.swapfile = false
+opt.expandtab = true
+opt.shiftround = true
+opt.shiftwidth = 0
+opt.tabstop = 2
+opt.mouse = 'nv'
+opt.winborder = 'rounded'
+opt.cmdheight = 0
+opt.pumheight = 10
+opt.pumwidth = 10
+opt.scrolloff = 8
+opt.sidescrolloff = 8
+opt.foldlevel = 99
+opt.fillchars = {
+	stl = ' ',
+	stlnc = '-',
+	msgsep = ' ',
+	foldopen = '',
+	foldclose = '',
+	fold = ' ',
+	foldsep = ' ',
+	diff = '╱',
+	eob = ' ',
+}
+opt.list = true
+opt.listchars = 'tab:» ,nbsp:+,trail:·,extends:→,precedes:←'
+opt.linebreak = true
+opt.wrap = false
+-- opt.inccommand = 'split'
+opt.ignorecase = true
+opt.smartcase = true
+opt.hlsearch = false
+opt.termguicolors = true
+-- trans bg
+local groups = { 'Normal', 'NormalFloat', 'FloatBorder', 'SignColumn', 'LineNr' }
+for _, group in ipairs(groups) do
+	vim.api.nvim_set_hl(0, group, { bg = 'none' })
 end
-vim.opt.rtp:prepend(lazypath)
--- Packages --
-require("lazy").setup({
-	{
-		"sainnhe/everforest",
-		config = function()
-			vim.g.everforest_background = "hard"
-			vim.g.everforest_transparent_background = 2
-			vim.cmd.colorscheme("everforest")
-		end,
-	},
-	{
-		"saghen/blink.cmp",
-		version = "1.*",
-		opts = { keymap = { preset = "super-tab" }, completion = { documentation = { auto_show = true } } },
-	},
-	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		config = function()
-			-- local parsers = { "go", "rust", "json", "yaml", "toml", "nginx", "python", "typst", "typescript" }
-			-- require("nvim-treesitter").install(parsers)
-			vim.api.nvim_create_autocmd("FileType", {
-				callback = function()
-					if vim.bo.filetype ~= "" and vim.treesitter.query.get(vim.bo.filetype, "highlights") then
-						vim.treesitter.start()
-						vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-					end
-				end,
-			})
-		end,
-	},
-	{ "neovim/nvim-lspconfig" },
-	{ "mason-org/mason.nvim", opts = {} },
-	{
-		"mason-org/mason-lspconfig.nvim",
-		opts = {
-			---@type string[]
-			ensure_installed = {
-				-- "bashls",
-				-- "fish_lsp",
-				"jsonls",
-				"lua_ls",
-				"stylua",
-				"rust_analyzer",
-				"ts_ls",
-				"tinymist",
-				-- "tombi", -- Not install by default.
-				"yamlls",
-			},
-		},
-	},
-	{ "nvim-mini/mini.files", opts = { windows = { preview = true } } },
-	{ "nvim-mini/mini.icons", opts = {} },
-	{ "nvim-mini/mini.notify", opts = {} },
-	{ "nvim-mini/mini.pick", opts = {} },
-	{ "nvim-mini/mini.snippets", opts = {} },
-	{ "nvim-mini/mini.statusline", opts = {} },
-	{ "nvim-mini/mini.tabline", opts = {} },
-	{ "farmergreg/vim-lastplace", event = "BufReadPost" },
-})
--- LSP Config --
-vim.lsp.config("jsonls", { settings = { json = { allowComments = true } } })
-vim.lsp.config(
-	"lua_ls",
-	{ settings = { Lua = { diagnostics = { globals = { "vim" } }, format = { enable = false } } } }
-)
--- vim.lsp.enable({ ... })
-vim.diagnostic.config({ virtual_text = true })
-vim.filetype.add({ extension = { lsr = "conf" } }) -- .lsr as .conf
--- Key Mapping --
--- Format
-vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "format" })
--- Personal
-vim.keymap.set({ "n", "v", "o" }, ";", ":")
-vim.keymap.set({ "n", "v", "o" }, "H", "^")
-vim.keymap.set({ "n", "v", "o" }, "L", "g_")
-vim.keymap.set("n", "<leader>m", "<cmd>set nu! nu?<cr>")
-vim.keymap.set("n", "<leader>w", "<cmd>set wrap! wrap?<cr>")
-vim.keymap.set("n", "<leader>l", "<cmd>set list! list?<cr>")
--- System clipboard
--- vim.keymap.set({ "n", "v" }, "<leader>c", '"+y', { desc = "copy to system clipboard" })
--- vim.keymap.set({ "n", "v" }, "<leader>x", '"+d', { desc = "cut to system clipboard" })
--- vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = "paste to system clipboard" })
--- Window switch
--- vim.keymap.set('n', '<leader>ww', '<C-w>w', { desc = 'focus windows' })
--- Line move
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
--- Resize Window
--- vim.keymap.set('n', '<C-Up>', ':resize +2<CR>', { desc = 'Increase window height' })
--- vim.keymap.set('n', '<C-Down>', ':resize -2<CR>', { desc = 'Decrease window height' })
--- vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { desc = 'Decrease window width' })
--- vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { desc = 'Increase window width' })
--- File/Package keymaps
-vim.keymap.set("n", "<leader>e", ":lua MiniFiles.open()<CR>", { desc = "open file explorer" })
-vim.keymap.set("n", "<leader>f", ":Pick files<CR>", { desc = "open file picker" })
-vim.keymap.set("n", "<leader>h", ":Pick help<CR>", { desc = "open help picker" })
-vim.keymap.set("n", "<leader>b", ":Pick buffers<CR>", { desc = "open buffer picker" })
-vim.keymap.set("n", "<leader>dd", vim.diagnostic.open_float, { desc = "diagnostic messages" })
--- LSP keymaps
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
-vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
-vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Find references" })
-vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
--- Fast diagnostic
-vim.keymap.set("n", "[d", function()
-	vim.diagnostic.jump({ wrap = true, count = -1 })
-end, { desc = "prev diagnostic" })
-vim.keymap.set("n", "]d", function()
-	vim.diagnostic.jump({ wrap = true, count = 1 })
-end, { desc = "next diagnostic" })
--- AutoCmds --
--- Auto Formatting
--- vim.api.nvim_create_autocmd("BufWritePre", { callback = function() vim.lsp.buf.format() end, pattern = "*", })
--- Highlight Yanked Texts
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "highlight copying text",
-	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+vim.cmd.colorscheme('everforest')
+-- function
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+local keymap = vim.keymap.set
+local group = augroup('momoGroup', { clear = true })
+-- Custom Event: LazyFile
+autocmd({ 'BufReadPost', 'BufNewFile' }, {
+	desc = 'User Event LazyFile',
+	group = group,
+	once = true,
 	callback = function()
-		vim.highlight.on_yank({ timeout = 500 })
+		if not vim.g._lazyfile_triggered then
+			vim.g._lazyfile_triggered = true
+			vim.schedule(function() vim.api.nvim_exec_autocmds('User', { pattern = 'LazyFile' }) end)
+		end
 	end,
 })
+-- Statusline
+autocmd('VimEnter', {
+	group = group,
+	once = true,
+	callback = function()
+		vim.schedule(function() require('mini.statusline').setup() end)
+	end,
+})
+-- LSP
+autocmd('User', {
+	group = group,
+	pattern = 'LazyFile',
+	callback = function()
+		vim.lsp.enable({ 'bashls', 'emmylua_ls', 'fish_lsp', 'jsonls', 'rust_analyzer', 'stylua', 'tombi', 'yamlls' })
+		vim.diagnostic.config({
+			virtual_text = true,
+			update_in_insert = true,
+			underline = true,
+			-- float = { border = 'rounded' },
+		})
+		vim.filetype.add({ extension = { ['lsr'] = 'conf' } }) -- .lsr as .conf
+		keymap('n', '<leader>d', vim.diagnostic.open_float, { desc = 'diagnostic messages' })
+		keymap('n', '[d', function() vim.diagnostic.jump({ wrap = true, count = -1 }) end, { desc = 'prev diagnostic' })
+		keymap('n', ']d', function() vim.diagnostic.jump({ wrap = true, count = 1 }) end, { desc = 'next diagnostic' })
+		-- lsp hover
+		keymap('n', '<leader>k', vim.lsp.buf.hover, { desc = 'lsp hover' })
+		-- Fast diagnostic
+		keymap({ 'n', 'x' }, 'gw', vim.lsp.buf.format, { desc = 'format' })
+	end,
+})
+-- Highlight Yanked Texts
+autocmd('TextYankPost', {
+	group = group,
+	callback = function() vim.hl.on_yank({ timeout = 300 }) end,
+})
+-- Last place
+autocmd('BufReadPost', {
+	group = group,
+	callback = function()
+		local fname = vim.fn.expand('%:t')
+		if not fname:match('^COMMIT_EDITMSG$') then
+			vim.cmd.setlocal('formatoptions-=ro')
+			local pos = vim.fn.getpos('\'"')
+			if pos[2] > 0 and pos[2] <= vim.fn.line('$') then vim.api.nvim_win_set_cursor(0, { pos[2], pos[3] - 1 }) end
+		end
+	end,
+})
+-- Treesitter
+-- autocmd('FileType', {
+-- 	group = group,
+-- 	callback = function(ev)
+-- 		local lang = vim.treesitter.language.get_lang(ev.match)
+-- 		if lang and vim.treesitter.language.add(lang) then
+-- 			if pcall(vim.treesitter.start) then
+-- 				-- if vim.treesitter.query.get(lang, 'indents') then
+-- 				-- 	vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+-- 				-- end
+-- 				if vim.treesitter.query.get(lang, 'folds') then
+-- 					vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+-- 					vim.wo.foldmethod = 'expr'
+-- 				end
+-- 			end
+-- 		end
+-- 	end,
+-- })
+-- keymap
+keymap('n', '<space>', '<Nop>', { noremap = true })
+-- fast command
+keymap({ 'n', 'o', 'x' }, ';', ':', { noremap = true })
+-- fast move to line begin/end
+keymap({ 'n', 'o', 'x' }, 'H', '^', { noremap = true })
+keymap({ 'n', 'o', 'x' }, 'L', 'g_', { noremap = true })
+-- fast save/quit and close buffer
+keymap('n', 'W', '<cmd>w<cr>', { noremap = true })
+keymap('n', 'Q', '<cmd>q<cr>', { noremap = true })
+keymap('n', 'B', '<cmd>bd<cr>', { noremap = true })
+-- keymap('n','ca', '<cmd>silent %y+<cr>')
+-- keymap('n', '<leader>c', '<cmd>set spell! spell?<cr>' )
+keymap('n', '<leader>l', '<cmd>set list! list?<cr>', { noremap = true })
+keymap('n', '<leader>m', '<cmd>set number! number?<cr>', { noremap = true })
+keymap('n', '<leader>w', '<cmd>set wrap! wrap?<cr>', { noremap = true })
+keymap('n', '<leader><cr>', '<cmd>noh<cr>', { noremap = true })
+-- keymap('n','<leader><leader>', '/<++><CR>:noh<CR>"_c4l',, {noremap=true})
+keymap('n', 'j', 'gj', { noremap = true })
+keymap('n', 'k', 'gk', { noremap = true })
+keymap('n', 'J', '<c-d>', { noremap = true })
+keymap('n', 'K', '<c-u>', { noremap = true })
+-- window
+keymap('n', '<C-h>', '<C-w>h', { noremap = true })
+keymap('n', '<C-j>', '<C-w>j', { noremap = true })
+keymap('n', '<C-k>', '<C-w>k', { noremap = true })
+keymap('n', '<C-l>', '<C-w>l', { noremap = true })
+-- Keep current search result centered on the screen
+-- keymap('n', 'n', 'nzz' , {noremap=true})
+-- keymap('n', 'N', 'Nzz' , {noremap=true})
+-- stay in visual after <,>
+-- keymap('v', '<', '<gv', {noremap=true})
+-- keymap('v', '>', '>gv', {noremap=true})
+-- keymap('n', '<leader>W', '<c-w>w' , {noremap=true})
+keymap('n', '<leader>sh', '<cmd>set nosplitright | vsplit<cr>', { noremap = true })
+keymap('n', '<leader>sj', '<cmd>set splitbelow | split<cr>', { noremap = true })
+keymap('n', '<leader>sk', '<cmd>set nosplitbelow | split<cr>', { noremap = true })
+keymap('n', '<leader>sl', '<cmd>set splitright | vsplit<cr>', { noremap = true })
+keymap('n', '<leader>smv', '<c-w>t<c-W>H', { noremap = true })
+keymap('n', '<leader>smh', '<c-w>t<c-W>K', { noremap = true })
+-- open vim config
+-- keymap('n', '<leader>vim', '<cmd>edit ' .. vim.fn.stdpath('config') .. '/init.lua | Chdir silent<cr>' , {noremap=true})
+-- update all packs
+-- keymap('n', '<leader>up', function() vim.pack.update(nil, { force = true }) end , {noremap=true})
+-- Line Move
+keymap('v', 'J', ":m '>+1<cr>gv=gv", { silent = true, noremap = true })
+keymap('v', 'K', ":m '<-2<cr>gv=gv", { silent = true, noremap = true })
+-- fast Norm in visual
+keymap('v', 'N', ':norm ', { noremap = true })
+-- systemd-wide yank, cut and paste
+keymap('v', '<leader>c', '"+y', { noremap = true })
+keymap('v', '<leader>x', '"+d', { noremap = true })
+keymap('v', '<leader>p', '"+p', { noremap = true })
+-- fast switch mode in terminal
+keymap('t', '<c-n>', '<C-\\><C-N>', { noremap = true })
+keymap('t', '<c-o>', '<C-\\><C-N><C-O>', { noremap = true })
+-- Ctrl + h,j,k,l to mode cursor in insert/command mode
+keymap({ 'i', 'c' }, '<c-h>', '<Left>', { noremap = true })
+keymap({ 'i', 'c' }, '<c-l>', '<Right>', { noremap = true })
+keymap({ 'i', 'c' }, '<c-a>', '<Home>', { noremap = true })
+keymap({ 'i', 'c' }, '<c-e>', '<End>', { noremap = true })
