@@ -1,9 +1,6 @@
 local function lsp_setup_fn()
 	local lsp_tbl = {
-		-- lua
 		'emmylua_ls',
-		'stylua',
-		-- common config filetypes
 		'jsonls',
 		'tombi',
 		'yamlls',
