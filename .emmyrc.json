@@ -3,32 +3,15 @@
   "runtime.version": "LuaJIT",
   "workspace": {
     "library": [
-      "$VIMRUNTIME"
+      "$VIMRUNTIME",
+      "$LLS_Addons/luvit"
     ],
     "checkThirdParty": "Disable"
-  },
-  "format": {
-    "externalTool": {
-      "program": "stylua",
-      "args": [
-        "-",
-        "--stdin-filepath",
-        "${file}"
-      ]
-    }
   },
   "diagnostics": {
     "disable": [
       "undefined-global",
       "unnecessary-if"
     ]
-  },
-  "codeAction": {
-    "insertSpace": true
-  },
-  "strict": {
-    "typeCall": true,
-    "arrayIndex": true
-  },
-  "format.enable": false
+  }
 }
