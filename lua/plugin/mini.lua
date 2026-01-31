@@ -4,7 +4,7 @@ local function mini_setup()
 	local mini_modules = {
 		['completion'] = {},
 		['cmdline'] = {},
-		['diff'] = {},
+		['diff'] = { view = { priority = 1 } },
 		['extra'] = {},
 		['files'] = { windows = { preview = true } },
 		-- ['icons'] = {},
@@ -21,7 +21,7 @@ local function mini_setup()
 	momo.mini.pairs({
 		-- modes = { insert = true, command = false, terminal = false },
 		skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
-		skip_ts = { 'string','comment' },
+		skip_ts = { 'string', 'comment' },
 		skip_unbalanced = true,
 		markdown = true,
 	})
@@ -53,9 +53,7 @@ local autocmd = vim.api.nvim_create_autocmd
 autocmd('UIEnter', {
 	group = augroup('mini.nvim', { clear = true }),
 	once = true,
-	callback = function()
-		vim.schedule(mini_setup)
-	end,
+	callback = function() vim.schedule(mini_setup) end,
 })
 -- Disable mini.completion in snacks
 autocmd('FileType', {
