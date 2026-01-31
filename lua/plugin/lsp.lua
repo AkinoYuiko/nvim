@@ -13,7 +13,12 @@ vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
 			require('mason-lspconfig').setup()
 			-- setup lspconfig
 			vim.lsp.enable({ 'emmylua_ls', 'jsonls', 'tombi', 'yamlls' })
-			vim.diagnostic.config({ virtual_text = true })
+			vim.diagnostic.config({
+				virtual_text = true,
+				-- update_in_insert = true,
+				-- underline = true,
+				float = { border = 'single' },
+			})
 			vim.filetype.add({ extension = { ['lsr'] = 'conf' } }) -- .lsr as .conf
 			-- set lsp key bindings
 			require('core.keymap').map({
