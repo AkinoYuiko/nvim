@@ -1,6 +1,6 @@
 local opt = vim.opt
 opt.number = true
-opt.cursorline = true
+-- opt.cursorline = true
 opt.swapfile = false
 opt.expandtab = true
 opt.shiftround = true
@@ -27,7 +27,7 @@ opt.fillchars = {
 	eob = ' ',
 }
 opt.list = true
-opt.listchars = 'tab:» ,nbsp:+,trail:·,extends:→,precedes:←'
+opt.listchars = { tab = '» ', nbsp = '+', trail = '·', extends = '→', precedes = '←' }
 opt.linebreak = true
 opt.wrap = false
 -- opt.inccommand = 'split'
