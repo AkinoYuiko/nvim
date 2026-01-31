@@ -6,5 +6,5 @@ require('core.keymap').map({
 	{ '[d', function() vim.diagnostic.jump({ wrap = true, count = -1 }) end, desc = 'prev diagnostic' },
 	{ ']d', function() vim.diagnostic.jump({ wrap = true, count = 1 }) end, desc = 'next diagnostic' },
 	-- { 'gw', vim.lsp.buf.format, desc = 'format', mode = { 'n', 'v' } },
-	{ 'gw', function() require("conform").format { lsp_fallback = true } end},
+	{ 'gw', function() require('conform').format({ lsp_fallback = true }) end },
 })
