@@ -31,28 +31,21 @@ local function lsp_setup_fn()
 	-- })
 end
 -- Packages --
-vim.pack.add({
-	'https://github.com/neovim/nvim-lspconfig',
-	'https://github.com/mason-org/mason.nvim',
-	'https://github.com/mason-org/mason-lspconfig.nvim',
-}, {
-	confirm = false,
-	load = function()
-		vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
-			group = vim.api.nvim_create_augroup('mason-lspconfig', { clear = true }),
-			once = true,
-			callback = function()
-				vim.schedule(function()
-					vim.cmd.packadd('nvim-lspconfig')
-					vim.cmd.packadd('mason.nvim')
-					vim.cmd.packadd('mason-lspconfig.nvim')
-					-- setup mason
-					require('mason').setup()
-					require('mason-lspconfig').setup()
-					-- setup lspconfig
-					lsp_setup_fn()
-				end)
-			end,
-		})
+vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
+	group = vim.api.nvim_create_augroup('mason-lspconfig', { clear = true }),
+	once = true,
+	callback = function()
+		vim.schedule(function()
+			vim.pack.add({
+				'https://github.com/neovim/nvim-lspconfig',
+				'https://github.com/mason-org/mason.nvim',
+				'https://github.com/mason-org/mason-lspconfig.nvim',
+			}, { confirm = false })
+			-- setup mason
+			require('mason').setup()
+			require('mason-lspconfig').setup()
+			-- setup lspconfig
+			lsp_setup_fn()
+		end)
 	end,
 })
