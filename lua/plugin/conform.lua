@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
 			vim.pack.add({ 'https://github.com/stevearc/conform.nvim' }, { confirm = false })
 			---@diagnostic disable-next-line
 			require('conform').setup(opts)
+			vim.keymap.set({ 'n', 'x' }, 'gw', function() require('conform').format({ lsp_fallback = true }) end)
 		end)
 	end,
 })

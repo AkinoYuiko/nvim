@@ -1,36 +1,3 @@
-local function lsp_setup_fn()
-	local lsp_tbl = {
-		'emmylua_ls',
-		'jsonls',
-		'tombi',
-		'yamlls',
-	}
-	vim.lsp.enable(lsp_tbl)
-	vim.diagnostic.config({ virtual_text = true })
-	vim.filetype.add({ extension = { ['lsr'] = 'conf' } }) -- .lsr as .conf
-	-- set lsp key bindings
-	require('keymap.lsp')
-	-- autocmd for format on save
-	-- local lsp_group = vim.api.nvim_create_augroup('nvim.lsp.format', {})
-	-- vim.api.nvim_create_autocmd('LspAttach', {
-	-- 	group = lsp_group,
-	-- 	callback = function(args)
-	-- 		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-	-- 		if not client then return end
-	-- 		if
-	-- 			not client:supports_method('textDocument/willSaveWaitUntil')
-	-- 			and client:supports_method('textDocument/formatting')
-	-- 		then
-	-- 			vim.api.nvim_create_autocmd('BufWritePre', {
-	-- 				group = lsp_group,
-	-- 				buffer = args.buf,
-	-- 				callback = function() vim.lsp.buf.format({ bufnr = args.buf, id = client.id, timeout_ms = 1000 }) end,
-	-- 			})
-	-- 		end
-	-- 	end,
-	-- })
-end
--- Packages --
 vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
 	group = vim.api.nvim_create_augroup('mason-lspconfig', { clear = true }),
 	once = true,
@@ -45,7 +12,18 @@ vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
 			require('mason').setup()
 			require('mason-lspconfig').setup()
 			-- setup lspconfig
-			lsp_setup_fn()
+			vim.lsp.enable({ 'emmylua_ls', 'jsonls', 'tombi', 'yamlls' })
+			vim.diagnostic.config({ virtual_text = true })
+			vim.filetype.add({ extension = { ['lsr'] = 'conf' } }) -- .lsr as .conf
+			-- set lsp key bindings
+			require('core.keymap').map({
+				-- lsp hover
+				{ '<leader>k', vim.lsp.buf.hover, desc = 'lsp hover' },
+				-- Fast diagnostic
+				{ '<leader>d', vim.diagnostic.open_float, desc = 'open diagnostic flow window' },
+				{ ']d', function() vim.vim.diagnostic.jump({ wrap = true, count = 1 }) end },
+				{ '[d', function() vim.vim.diagnostic.jump({ wrap = true, count = -1 }) end },
+			})
 		end)
 	end,
 })

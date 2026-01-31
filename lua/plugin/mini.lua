@@ -1,5 +1,7 @@
-vim.api.nvim_create_autocmd('UIEnter', {
-	group = vim.api.nvim_create_augroup('plugin.mini', { clear = true }),
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+autocmd('UIEnter', {
+	group = augroup('mini.nvim', { clear = true }),
 	once = true,
 	callback = function()
 		vim.schedule(function()
@@ -41,14 +43,22 @@ vim.api.nvim_create_autocmd('UIEnter', {
 				end
 			end
 			-- mini pick keymap
-			require('keymap.mini')
-			-- Disable mini.completion in snacks
-			vim.api.nvim_create_augroup('user_mini_snacks', { clear = true })
-			vim.api.nvim_create_autocmd('FileType', {
-				pattern = 'snacks_picker_input',
-				group = 'user_mini_snacks',
-				callback = function() vim.b.minicompletion_disable = true end,
+			require('core.keymap').map({
+				-- File/Package keymaps
+				{ '<leader>e', function() MiniFiles.open() end, desc = 'open mini.files' },
+				{ '<leader>f', function() MiniPick.builtin.files() end, desc = 'open mini.pick' },
+				{ '<leader>/', function() MiniPick.builtin.grep_live() end, desc = 'open mini.pick grep' },
+				{ '<leader>h', function() MiniPick.builtin.help() end, desc = 'open mini.pick help' },
+				{ '<leader>b', function() MiniPick.builtin.buffers() end, desc = 'open mini.pick buffers' },
+				{ '<leader>:', function() MiniExtra.pickers.history() end, desc = 'open mini.pick command history' },
+				{ '<leader>,', function() MiniExtra.pickers.git_files() end, desc = 'open mini.pick git files' },
 			})
 		end)
 	end,
+})
+-- Disable mini.completion in snacks
+autocmd('FileType', {
+	pattern = 'snacks_picker_input',
+	group = augroup('user_mini_snacks', { clear = true }),
+	callback = function() vim.b.minicompletion_disable = true end,
 })
