@@ -41,7 +41,7 @@ autocmd('UIEnter', {
 	group = group,
 	once = true,
 	callback = function()
-		vim.defer_fn(function()
+		vim.schedule(function()
 			-- chdir
 			usercmd('Chdir', function(args) require('function.chdir').chdir(args.args == 'silent') end, {
 				nargs = '?',
@@ -49,6 +49,6 @@ autocmd('UIEnter', {
 			})
 			-- keymap
 			require('keymap')
-		end, 0)
+		end)
 	end,
 })
