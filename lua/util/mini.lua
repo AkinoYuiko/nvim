@@ -83,14 +83,10 @@ local M = {}
 ---@param opts {skip_next: string, skip_ts: string[], skip_unbalanced: boolean, markdown: boolean}
 function M.pairs(opts)
 	Snacks.toggle({
-	  name = "Mini Pairs",
-	  get = function()
-	    return not vim.g.minipairs_disable
-	  end,
-	  set = function(state)
-	    vim.g.minipairs_disable = not state
-	  end,
-	}):map("<leader>sp")
+		name = 'Mini Pairs',
+		get = function() return not vim.g.minipairs_disable end,
+		set = function(state) vim.g.minipairs_disable = not state end,
+	}):map('<leader>sp')
 
 	local pairs = require('mini.pairs')
 	pairs.setup(opts)
