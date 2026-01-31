@@ -1,6 +1,6 @@
 local opts = {
 	formatters_by_ft = {
-		lua = 'stylua',
+		lua = { 'stylua' },
 	},
 }
 vim.pack.add({ 'https://github.com/stevearc/conform.nvim' }, {
