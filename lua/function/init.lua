@@ -37,7 +37,7 @@ autocmd('FileType', {
 	end,
 })
 -- Internal fn
-autocmd('VimEnter', {
+autocmd('UIEnter', {
 	group = group,
 	once = true,
 	callback = function()
