@@ -29,6 +29,7 @@ opt.fillchars = {
 opt.list = true
 opt.listchars = { tab = '» ', nbsp = '+', trail = '·', extends = '→', precedes = '←' }
 opt.linebreak = true
+opt.laststatus = 3
 opt.wrap = false
 -- opt.inccommand = 'split'
 opt.ignorecase = true
