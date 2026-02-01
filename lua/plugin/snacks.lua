@@ -19,13 +19,13 @@ local picker_exclude = {
 }
 require('snacks').setup({
 	bigfile = { enabled = true },
-	indent = {
-		enabled = true,
-		animate = { duration = { step = 15, total = 300 } },
-	},
+	-- indent = {
+	-- 	enabled = true,
+	-- 	animate = { duration = { step = 15, total = 300 } },
+	-- },
 	input = { enabled = true },
 	quickfile = { enabled = true },
-	scope = { enabled = true },
+	-- scope = { enabled = true },
 	scroll = {
 		enabled = true,
 		animate = { duration = { step = 6, total = 60 } },

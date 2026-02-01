@@ -4,9 +4,10 @@ local function mini_setup()
 	local mini_modules = {
 		['completion'] = {},
 		['cmdline'] = {},
-		['diff'] = { view = { priority = 1 } },
+		['diff'] = {},
 		['extra'] = {},
 		['files'] = { windows = { preview = true } },
+		['indentscope'] = { symbol = '|' },
 		-- ['icons'] = {},
 		-- ['notify'] = {},
 		['pick'] = {},
