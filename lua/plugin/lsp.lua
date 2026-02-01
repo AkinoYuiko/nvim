@@ -11,12 +11,7 @@ local function lsp_setup()
 	vim.lsp.enable({ 'emmylua_ls', 'jsonls', 'tombi', 'yamlls' })
 	vim.diagnostic.config({
 		signs = { priority = 9999, severity = { min = 'WARN', max = 'ERROR' } },
-		underline = { severity = { min = 'HINT', max = 'ERROR' } },
 		virtual_lines = false,
-		virtual_text = {
-			current_line = true,
-			severity = { min = 'ERROR', max = 'ERROR' },
-		},
 		update_in_insert = false,
 		float = { border = 'single' },
 	})
