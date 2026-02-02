@@ -1,3 +1,4 @@
+local autocmd = vim.api.nvim_create_autocmd
 local function lsp_setup()
 	vim.pack.add({
 		'https://github.com/neovim/nvim-lspconfig',
@@ -10,10 +11,8 @@ local function lsp_setup()
 	-- setup lspconfig
 	vim.lsp.enable({ 'emmylua_ls', 'jsonls', 'tombi', 'yamlls' })
 	vim.diagnostic.config({
-		signs = { priority = 9999, severity = { min = 'WARN', max = 'ERROR' } },
 		virtual_text = true,
 		underline = true,
-		update_in_insert = false,
 		float = { border = 'single' },
 	})
 	vim.filetype.add({ extension = { ['lsr'] = 'conf' } }) -- .lsr as .conf
@@ -27,7 +26,7 @@ local function lsp_setup()
 		{ '[d', function() vim.vim.diagnostic.jump({ wrap = true, count = -1 }) end },
 	})
 end
-vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
+autocmd({ 'BufReadPost', 'BufNewFile' }, {
 	group = vim.api.nvim_create_augroup('mason-lspconfig', { clear = true }),
 	once = true,
 	callback = function() vim.schedule(lsp_setup) end,

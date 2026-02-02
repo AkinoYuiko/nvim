@@ -1,10 +1,22 @@
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
 local function mini_setup()
 	vim.pack.add({ 'https://github.com/nvim-mini/mini.nvim' }, { confirm = false })
 	-- Mini Packs Setup
+	local process_items_opts = { kind_priority = { Text = -1, Snippet = 99 } }
+	local process_items = function(items, base)
+		return MiniCompletion.default_process_items(items, base, process_items_opts)
+	end
 	local mini_modules = {
-		['completion'] = {},
+		['completion'] = {
+			lsp_completion = {
+				source_func = 'omnifunc',
+				auto_setup = false,
+				process_items = process_items,
+			},
+		},
 		['cmdline'] = {},
-		['diff'] = {},
+		['diff'] = { view = { priority = 1 } },
 		['extra'] = {},
 		['files'] = { windows = { preview = true } },
 		['indentscope'] = { symbol = '|' },
@@ -18,14 +30,12 @@ local function mini_setup()
 	for mod, opts in pairs(mini_modules) do
 		require('mini.' .. mod).setup(opts)
 	end
-	-- copied from LazyVim, to handle skip_opts
-	momo.mini.pairs({
-		-- modes = { insert = true, command = false, terminal = false },
-		skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
-		skip_ts = { 'string', 'comment' },
-		skip_unbalanced = true,
-		markdown = true,
+	-- Mini completion with LSP Compatibilities
+	autocmd('LspAttach', {
+		group = augroup('LspAttach', { clear = true }),
+		callback = function(ev) vim.bo[ev.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp' end,
 	})
+	vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() })
 	-- mini.keymap
 	local ok, mini_keymap = pcall(require, 'mini.keymap')
 	if ok then
@@ -37,6 +47,14 @@ local function mini_setup()
 			map_multistep('i', '<BS>', { 'minipairs_bs' })
 		end
 	end
+	-- copied from LazyVim, to handle skip_opts
+	momo.mini.pairs({
+		-- modes = { insert = true, command = false, terminal = false },
+		skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
+		skip_ts = { 'string', 'comment' },
+		skip_unbalanced = true,
+		markdown = true,
+	})
 	-- mini pick keymap
 	require('core.keymap').map({
 		-- File/Package keymaps
@@ -49,8 +67,6 @@ local function mini_setup()
 		{ '<leader>,', function() MiniExtra.pickers.git_files() end, desc = 'open mini.pick git files' },
 	})
 end
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
 autocmd('UIEnter', {
 	group = augroup('mini.nvim', { clear = true }),
 	once = true,
