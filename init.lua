@@ -91,6 +91,9 @@ autocmd('User', {
 		keymap('n', ']d', function() vim.diagnostic.jump({ wrap = true, count = 1 }) end, { desc = 'next diagnostic' })
 		keymap({ 'n', 'x' }, 'gw', vim.lsp.buf.format, { desc = 'format' })
 		keymap({ 'n', 'x' }, 'gq', '<nop>', { noremap = true })
+		-- for those that installed Mason
+		local mason_bin = vim.fn.stdpath('data') .. '/mason/bin'
+		vim.env.PATH = mason_bin .. ':' .. vim.env.PATH
 	end,
 })
 -- Highlight Yanked Texts
