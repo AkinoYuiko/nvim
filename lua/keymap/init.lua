@@ -11,6 +11,8 @@ map({
 	{ 'W', cmd('w') },
 	{ 'Q', cmd('q') },
 	{ 'B', cmd('bd') },
+	{ '<tab>', cmd('bNext') },
+	{ '<s-tab>', cmd('bprevious') },
 	-- {'ca', cmd('silent %y+'),},
 	-- { '<leader>c', cmd('set spell! spell?') },
 	{ '<leader>l', cmd('set list! list?') },
