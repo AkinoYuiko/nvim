@@ -47,11 +47,7 @@ opt.termguicolors = true
 -- netrw
 vim.g.netrw_banner = 0
 -- trans bg
-local groups = { 'Normal', 'NormalFloat', 'FloatBorder', 'SignColumn', 'LineNr' }
-for _, group in ipairs(groups) do
-	vim.api.nvim_set_hl(0, group, { bg = 'none' })
-end
-vim.schedule(function() vim.cmd.colorscheme('everforest') end)
+vim.cmd.colorscheme('everforest')
 -- function
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
