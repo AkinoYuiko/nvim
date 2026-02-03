@@ -24,7 +24,17 @@ opt.scrolloff = 8
 -- opt.sidescrolloff = 8
 opt.foldlevel = 99
 opt.foldmethod = 'expr'
--- opt.fillchars = { stl = ' ', stlnc = '-', msgsep = ' ', foldopen = '', foldclose = '', fold = ' ', foldsep = ' ', diff = '╱', eob = ' ', }
+opt.fillchars = {
+	stl = ' ',
+	stlnc = '-',
+	msgsep = ' ',
+	foldopen = '',
+	foldclose = '',
+	fold = ' ',
+	foldsep = ' ',
+	diff = '╱',
+	eob = ' ',
+}
 opt.list = true
 opt.listchars = { tab = '» ', nbsp = '+', trail = '·', extends = '→', precedes = '←' }
 opt.linebreak = true
