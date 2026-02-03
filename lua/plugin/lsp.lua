@@ -9,7 +9,7 @@ local function lsp_setup()
 	require('mason').setup()
 	require('mason-lspconfig').setup()
 	-- setup lspconfig
-	vim.lsp.enable({ 'emmylua_ls', 'jsonls', 'tombi', 'yamlls' })
+	vim.lsp.enable({ 'emmylua_ls', 'stylua', 'jsonls', 'tombi', 'yamlls' })
 	vim.diagnostic.config({
 		virtual_text = true,
 		underline = true,
@@ -18,6 +18,8 @@ local function lsp_setup()
 	vim.filetype.add({ extension = { ['lsr'] = 'conf' } }) -- .lsr as .conf
 	-- set lsp key bindings
 	require('core.keymap').map({
+		{ 'gw', vim.lsp.buf.format, desc = 'LSP Format', mode = { 'n', 'x' } },
+		{ 'gq', '<nop>', mode = { 'n', 'x' } },
 		-- lsp hover
 		{ '<leader>k', vim.lsp.buf.hover, desc = 'lsp hover' },
 		-- Fast diagnostic
