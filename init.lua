@@ -24,6 +24,7 @@ opt.scrolloff = 8
 -- opt.sidescrolloff = 8
 opt.foldlevel = 99
 opt.foldmethod = 'expr'
+opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 opt.fillchars = {
 	stl = ' ',
 	stlnc = '-',
