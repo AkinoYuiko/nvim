@@ -26,6 +26,10 @@ local function lsp_setup()
 		{ '<leader>d', vim.diagnostic.open_float, desc = 'open diagnostic flow window' },
 		{ ']d', function() vim.vim.diagnostic.jump({ wrap = true, count = 1 }) end },
 		{ '[d', function() vim.vim.diagnostic.jump({ wrap = true, count = -1 }) end },
+		{ 'gd', vim.lsp.buf.definition, desc = 'Goto Definition' },
+		{ 'gD', vim.lsp.buf.declaration, desc = 'Goto Declaration' },
+		-- { 'gr', vim.lsp.buf.references, nowait = true, desc = 'References' },
+		{ 'gI', vim.lsp.buf.implementation, desc = 'Goto Implementation' },
 	})
 end
 autocmd({ 'BufReadPost', 'BufNewFile' }, {
