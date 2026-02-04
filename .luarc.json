@@ -7,11 +7,5 @@
       "$LLS_Addons/luvit"
     ],
     "checkThirdParty": "Disable"
-  },
-  "diagnostics": {
-    "disable": [
-      "undefined-global",
-      "unnecessary-if"
-    ]
   }
 }
