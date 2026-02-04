@@ -24,8 +24,8 @@ local function lsp_setup()
 		{ '<leader>k', vim.lsp.buf.hover, desc = 'lsp hover' },
 		-- Fast diagnostic
 		{ '<leader>d', vim.diagnostic.open_float, desc = 'open diagnostic flow window' },
-		{ ']d', function() vim.vim.diagnostic.jump({ wrap = true, count = 1 }) end },
-		{ '[d', function() vim.vim.diagnostic.jump({ wrap = true, count = -1 }) end },
+		{ ']d', function() vim.diagnostic.jump({ wrap = true, count = 1 }) end },
+		{ '[d', function() vim.diagnostic.jump({ wrap = true, count = -1 }) end },
 		{ 'gd', vim.lsp.buf.definition, desc = 'Goto Definition' },
 		{ 'gD', vim.lsp.buf.declaration, desc = 'Goto Declaration' },
 		-- { 'gr', vim.lsp.buf.references, nowait = true, desc = 'References' },
