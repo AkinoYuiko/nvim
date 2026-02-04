@@ -87,8 +87,11 @@ autocmd('User', {
 		vim.lsp.enable({ 'bashls', 'emmylua_ls', 'stylua', 'fish_lsp', 'jsonls', 'rust_analyzer', 'tombi', 'yamlls' })
 		vim.diagnostic.config({ virtual_text = true })
 		vim.filetype.add({ extension = { ['lsr'] = 'conf' } }) -- .lsr as .conf
-		keymap('n', '<leader>d', vim.diagnostic.open_float, { desc = 'diagnostic messages' })
+		keymap('n', 'gd', vim.lsp.buf.definition, { desc = 'goto lsp definition' })
+		keymap('n', 'gD', vim.lsp.buf.declaration, { desc = 'goto lsp declaration' })
+		keymap('n', 'gI', vim.lsp.buf.implementation, { desc = 'goto lsp implementation' })
 		keymap('n', '<leader>k', vim.lsp.buf.hover, { desc = 'lsp hover' })
+		keymap('n', '<leader>d', vim.diagnostic.open_float, { desc = 'diagnostic messages' })
 		keymap('n', '[d', function() vim.diagnostic.jump({ wrap = true, count = -1 }) end, { desc = 'prev diagnostic' })
 		keymap('n', ']d', function() vim.diagnostic.jump({ wrap = true, count = 1 }) end, { desc = 'next diagnostic' })
 		keymap({ 'n', 'x' }, 'gw', vim.lsp.buf.format, { desc = 'format' })
@@ -117,8 +120,8 @@ keymap('n', '<space>', '<Nop>', { noremap = true })
 -- fast command
 keymap({ 'n', 'o', 'x' }, ';', ':', { noremap = true })
 -- fast move to line begin/end
-keymap({ 'n', 'o', 'x' }, 'H', '^', { noremap = true })
-keymap({ 'n', 'o', 'x' }, 'L', 'g_', { noremap = true })
+keymap({ 'n', 'x' }, 'H', '^', { noremap = true })
+keymap({ 'n', 'x' }, 'L', 'g_', { noremap = true })
 -- fast save/quit and close buffer
 keymap('n', 'W', '<cmd>w<cr>', { noremap = true })
 keymap('n', 'Q', '<cmd>q<cr>', { noremap = true })
