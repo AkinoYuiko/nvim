@@ -54,6 +54,10 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
 local group = augroup('momoGroup', { clear = true })
+-- Treesitter
+autocmd('FileType', { group = group, callback = function() pcall(vim.treesitter.start) end })
+-- Highlight Yanked Texts
+autocmd('TextYankPost', { group = group, callback = function() vim.hl.on_yank({ timeout = 300 }) end })
 -- Custom Event: LazyFile
 autocmd({ 'BufReadPost', 'BufNewFile' }, {
 	desc = 'User Event LazyFile',
@@ -74,11 +78,6 @@ autocmd('UIEnter', {
 		vim.schedule(function() require('mini.statusline').setup() end)
 	end,
 })
--- Treesitter
-autocmd('FileType', {
-	group = group,
-	callback = function() pcall(vim.treesitter.start) end,
-})
 -- LSP
 autocmd('User', {
 	group = group,
@@ -97,11 +96,6 @@ autocmd('User', {
 		keymap({ 'n', 'x' }, 'gw', vim.lsp.buf.format, { desc = 'format' })
 		keymap({ 'n', 'x' }, 'gq', '<nop>', { noremap = true })
 	end,
-})
--- Highlight Yanked Texts
-autocmd('TextYankPost', {
-	group = group,
-	callback = function() vim.hl.on_yank({ timeout = 300 }) end,
 })
 -- Last place
 autocmd('BufReadPost', {
