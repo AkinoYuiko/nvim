@@ -23,15 +23,13 @@ autocmd('FileType', {
 	group = group,
 	callback = function(ev)
 		local lang = vim.treesitter.language.get_lang(ev.match)
-		if lang and vim.treesitter.language.add(lang) then
-			if pcall(vim.treesitter.start) then
-				if vim.treesitter.query.get(lang, 'indents') then
-					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-				end
-				if vim.treesitter.query.get(lang, 'folds') then
-					vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-					vim.wo.foldmethod = 'expr'
-				end
+		if lang and pcall(vim.treesitter.start) then
+			if vim.treesitter.query.get(lang, 'indents') then
+				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+			end
+			if vim.treesitter.query.get(lang, 'folds') then
+				vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+				vim.wo.foldmethod = 'expr'
 			end
 		end
 	end,
