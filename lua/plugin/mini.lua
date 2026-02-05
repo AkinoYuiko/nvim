@@ -41,20 +41,11 @@ local function mini_setup()
 	if ok then
 		local map_multistep = mini_keymap.map_multistep
 		if map_multistep ~= nil then
-			map_multistep('i', '<Tab>', { 'pmenu_next' })
-			map_multistep('i', '<S-Tab>', { 'pmenu_prev' })
-			map_multistep('i', '<CR>', { 'pmenu_accept', 'minipairs_cr' })
-			map_multistep('i', '<BS>', { 'minipairs_bs' })
+			map_multistep('i', '<tab>', { 'pmenu_next' })
+			map_multistep('i', '<s-tab>', { 'pmenu_prev' })
+			map_multistep('i', '<cr>', { 'pmenu_accept' })
 		end
 	end
-	-- copied from LazyVim, to handle skip_opts
-	momo.mini.pairs({
-		-- modes = { insert = true, command = false, terminal = false },
-		skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
-		skip_ts = { 'string', 'comment' },
-		skip_unbalanced = true,
-		markdown = true,
-	})
 	-- mini pick keymap
 	require('core.keymap').map({
 		-- File/Package keymaps
