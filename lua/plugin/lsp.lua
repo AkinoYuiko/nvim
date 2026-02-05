@@ -14,7 +14,7 @@ local function lsp_setup()
 	vim.filetype.add({ extension = { ['lsr'] = 'conf' } }) -- .lsr as .conf
 	-- set lsp key bindings
 	require('core.keymap').map({
-		{ 'gw', vim.lsp.buf.format, desc = 'LSP Format', mode = { 'n', 'x' } },
+		-- { 'gw', vim.lsp.buf.format, desc = 'LSP Format', mode = { 'n', 'x' } },
 		{ 'gq', '<nop>', mode = { 'n', 'x' } },
 		-- lsp hover
 		{ '<leader>k', vim.lsp.buf.hover, desc = 'lsp hover' },
