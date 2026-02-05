@@ -2,6 +2,7 @@ local opts = {
 	formatters_by_ft = {
 		lua = { 'stylua' },
 		fish = { 'fish_indent' },
+		json = { 'jq' },
 		sh = { 'shfmt' },
 	},
 	formatters = {
