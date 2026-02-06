@@ -55,7 +55,14 @@ local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
 local group = augroup('momoGroup', { clear = true })
 -- Treesitter
-autocmd('FileType', { group = group, callback = function() pcall(vim.treesitter.start) end })
+autocmd('FileType', {
+	group = group,
+	callback = function()
+		pcall(vim.treesitter.start)
+		opt.formatoptions:remove({ 'c', 'r', 'o' })
+	end,
+})
+
 -- Highlight Yanked Texts
 autocmd('TextYankPost', { group = group, callback = function() vim.hl.on_yank({ timeout = 300 }) end })
 -- Custom Event: LazyFile
