@@ -9,9 +9,8 @@ local function lsp_setup()
 	require('mason').setup()
 	require('mason-lspconfig').setup()
 	-- setup lspconfig
-	vim.lsp.enable({ 'emmylua_ls', 'stylua', 'jsonls', 'tombi', 'yamlls' })
+	vim.lsp.enable({ 'emmylua_ls', 'stylua', 'jsonls', 'tombi', 'yamlls', 'teal_ls' })
 	vim.diagnostic.config({ virtual_text = true })
-	vim.filetype.add({ extension = { ['lsr'] = 'conf' } }) -- .lsr as .conf
 	-- set lsp key bindings
 	require('core.keymap').map({
 		-- { 'gw', vim.lsp.buf.format, desc = 'LSP Format', mode = { 'n', 'x' } },
