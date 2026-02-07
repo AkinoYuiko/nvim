@@ -43,7 +43,7 @@ map({
 	{ '<leader>smv', '<c-w>t<c-W>H' },
 	{ '<leader>smh', '<c-w>t<c-W>K' },
 	-- open vim config
-	{ '<leader>vim', cmd('edit ' .. vim.fn.stdpath('config') .. '/init.lua | Chdir silent') },
+	{ '<leader>vim', cmd('cd ' .. vim.fn.stdpath('config') .. ' | edit init.lua')},
 	-- update all packs
 	{ '<leader>up', function() vim.pack.update(nil, { force = true }) end },
 	-- Line Move

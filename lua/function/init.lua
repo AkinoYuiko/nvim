@@ -1,5 +1,4 @@
 local autocmd = vim.api.nvim_create_autocmd
-local usercmd = vim.api.nvim_create_user_command
 local group = vim.api.nvim_create_augroup('momoGroup', { clear = true })
 -- Highlight Yanked Texts
 autocmd('TextYankPost', {
@@ -34,19 +33,5 @@ autocmd('FileType', {
 		end
 	end,
 })
--- Internal fn
-autocmd('UIEnter', {
-	group = group,
-	once = true,
-	callback = function()
-		vim.schedule(function()
-			-- chdir
-			usercmd('Chdir', function(args) require('function.chdir').chdir(args.args == 'silent') end, {
-				nargs = '?',
-				complete = function() return { 'silent' } end,
-			})
-			-- keymap
-			require('keymap')
-		end)
-	end,
-})
+-- Keymap
+vim.schedule(function() require('keymap') end)
