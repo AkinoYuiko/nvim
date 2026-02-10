@@ -4,6 +4,7 @@ local opts = {
 		fish = { 'fish_indent' },
 		json = { 'jq' },
 		sh = { 'shfmt' },
+		rust = { 'rustfmt' },
 	},
 	formatters = {
 		injected = { options = { ignore_errors = true } },
