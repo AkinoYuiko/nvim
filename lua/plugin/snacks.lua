@@ -23,6 +23,7 @@ require('snacks').setup({
 	-- 	enabled = true,
 	-- 	animate = { duration = { step = 15, total = 300 } },
 	-- },
+	image = { enabled = true },
 	input = { enabled = true },
 	quickfile = { enabled = true },
 	-- scope = { enabled = true },
