@@ -9,7 +9,22 @@ local function lsp_setup()
 	require('mason').setup()
 	require('mason-lspconfig').setup()
 	-- setup lspconfig
-	vim.lsp.enable({ 'bashls', 'fish_lsp', 'emmylua_ls', 'stylua', 'jsonls', 'tombi', 'yamlls' })
+	vim.lsp.enable({
+		-- shell
+		'bashls',
+		'fish_lsp',
+		-- nix
+		'nil_ls',
+		-- lua
+		'emmylua_ls',
+		'stylua',
+		-- js/ts
+		'oxlint',
+		-- config files
+		'jsonls',
+		'tombi',
+		'yamlls',
+	})
 	vim.diagnostic.config({ virtual_text = true })
 	-- set lsp key bindings
 	require('core.keymap').map({

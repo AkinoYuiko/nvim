@@ -5,8 +5,15 @@ local opts = {
 		json = { 'oxfmt' },
 		sh = { 'shfmt' },
 		rust = { 'rustfmt' },
+		javascript = { 'oxfmt' },
+		typescript = { 'oxfmt' },
 	},
 	formatters = {
+		oxfmt = {
+			command = 'oxfmt',
+			args = { '--lsp' },
+			stdin = true,
+		},
 		injected = { options = { ignore_errors = true } },
 	},
 }
