@@ -1,3 +1,4 @@
+-- type :so to install parsers
 local parsers = {
 	"bash",
 	"css",
