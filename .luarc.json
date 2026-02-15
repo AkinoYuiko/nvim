@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/EmmyLuaLs/emmylua-analyzer-rust/refs/heads/main/crates/emmylua_code_analysis/resources/schema.json",
+  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
   "runtime.version": "LuaJIT",
   "workspace": {
     "library": [
@@ -8,5 +8,8 @@
     ],
     "checkThirdParty": "Disable"
   },
-  "diagnostics.disable": ["undefined-global"]
+  "diagnostics.disable": [
+    "undefined-global"
+  ],
+  "format.enable": false
 }

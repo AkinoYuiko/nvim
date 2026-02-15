@@ -2,18 +2,10 @@ local opts = {
 	formatters_by_ft = {
 		lua = { 'stylua' },
 		fish = { 'fish_indent' },
-		json = { 'oxfmt' },
 		sh = { 'shfmt' },
 		rust = { 'rustfmt' },
-		javascript = { 'oxfmt' },
-		typescript = { 'oxfmt' },
 	},
 	formatters = {
-		oxfmt = {
-			command = 'oxfmt',
-			args = { '--lsp' },
-			stdin = true,
-		},
 		injected = { options = { ignore_errors = true } },
 	},
 }

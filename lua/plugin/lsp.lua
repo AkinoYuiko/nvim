@@ -1,14 +1,13 @@
 local autocmd = vim.api.nvim_create_autocmd
+local group = vim.api.nvim_create_augroup('lspconfig', { clear = true })
 local function lsp_setup()
 	vim.pack.add({
 		'https://github.com/neovim/nvim-lspconfig',
 		-- 'https://github.com/mason-org/mason.nvim',
 		-- 'https://github.com/mason-org/mason-lspconfig.nvim',
-	}, { confirm = false })
-	-- setup mason
-	-- require('mason').setup()
-	-- require('mason-lspconfig').setup()
-	-- setup lspconfig
+	}, {
+		confirm = false,
+	})
 	vim.lsp.enable({
 		-- shell
 		'bashls',
@@ -20,6 +19,7 @@ local function lsp_setup()
 		'stylua',
 		-- js/ts
 		'oxlint',
+		'oxfmt',
 		-- config files
 		'jsonls',
 		'tombi',
@@ -42,8 +42,8 @@ local function lsp_setup()
 		{ 'gI', vim.lsp.buf.implementation, desc = 'Goto Implementation' },
 	})
 end
-autocmd({ 'BufReadPost', 'BufNewFile' }, {
-	group = vim.api.nvim_create_augroup('mason-lspconfig', { clear = true }),
+autocmd('UIEnter', {
+	group = group,
 	once = true,
 	callback = function() vim.schedule(lsp_setup) end,
 })
