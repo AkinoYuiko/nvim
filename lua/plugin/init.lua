@@ -1,4 +1,4 @@
-require('plugin.everforest')
+require('plugin.catppuccin')
 require('plugin.snacks')
 require('plugin.treesitter')
 require('plugin.mini')
