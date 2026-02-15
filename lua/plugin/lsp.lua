@@ -2,12 +2,12 @@ local autocmd = vim.api.nvim_create_autocmd
 local function lsp_setup()
 	vim.pack.add({
 		'https://github.com/neovim/nvim-lspconfig',
-		'https://github.com/mason-org/mason.nvim',
-		'https://github.com/mason-org/mason-lspconfig.nvim',
+		-- 'https://github.com/mason-org/mason.nvim',
+		-- 'https://github.com/mason-org/mason-lspconfig.nvim',
 	}, { confirm = false })
 	-- setup mason
-	require('mason').setup()
-	require('mason-lspconfig').setup()
+	-- require('mason').setup()
+	-- require('mason-lspconfig').setup()
 	-- setup lspconfig
 	vim.lsp.enable({
 		-- shell
