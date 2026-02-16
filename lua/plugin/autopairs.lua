@@ -1,4 +1,5 @@
 vim.pack.add({ 'https://github.com/windwp/nvim-autopairs' }, {
+	confirm = false,
 	load = function(pack)
 		vim.api.nvim_create_autocmd('InsertEnter', {
 			group = vim.api.nvim_create_augroup('nvim-autopairs', { clear = true }),
