@@ -13,7 +13,7 @@ local function lsp_setup()
 		'bashls',
 		'fish_lsp',
 		-- nix
-		'nil_ls',
+		'nixd',
 		-- lua
 		'emmylua_ls',
 		'stylua',
