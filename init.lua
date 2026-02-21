@@ -10,6 +10,7 @@ require('vim._core.ui2').enable({})
 local opt = vim.opt
 opt.number = true
 opt.cursorline = true
+opt.cursorlineopt = 'number'
 opt.signcolumn = 'yes'
 opt.swapfile = false
 opt.expandtab = true
