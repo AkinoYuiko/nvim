@@ -17,6 +17,8 @@ local function lsp_setup()
 		-- lua
 		'emmylua_ls',
 		'stylua',
+		-- rust
+		'rust_analyzer',
 		-- js/ts
 		'oxlint',
 		'oxfmt',

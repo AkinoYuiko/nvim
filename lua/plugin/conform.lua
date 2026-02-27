@@ -3,7 +3,6 @@ local opts = {
 		lua = { 'stylua' },
 		fish = { 'fish_indent' },
 		sh = { 'shfmt' },
-		rust = { 'rustfmt' },
 	},
 	formatters = {
 		injected = { options = { ignore_errors = true } },
