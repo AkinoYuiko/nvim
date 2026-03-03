@@ -1,13 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local group = vim.api.nvim_create_augroup('lspconfig', { clear = true })
 local function lsp_setup()
-	vim.pack.add({
-		'https://github.com/neovim/nvim-lspconfig',
-		-- 'https://github.com/mason-org/mason.nvim',
-		-- 'https://github.com/mason-org/mason-lspconfig.nvim',
-	}, {
-		confirm = false,
-	})
 	vim.lsp.enable({
 		-- shell
 		'bashls',

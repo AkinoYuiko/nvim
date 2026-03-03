@@ -1,7 +1,6 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local function mini_setup()
-	vim.pack.add({ 'https://github.com/nvim-mini/mini.nvim' }, { confirm = false })
 	-- Mini Packs Setup
 	local process_items_opts = { kind_priority = { Text = -1, Snippet = 99 } }
 	local process_items = function(items, base)

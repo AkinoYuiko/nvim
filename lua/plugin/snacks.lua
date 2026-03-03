@@ -1,4 +1,3 @@
-vim.pack.add({ 'https://github.com/folke/snacks.nvim' }, { confirm = false })
 local picker_exclude = {
 	'**/.git/*',
 	'**/node_modules/*',

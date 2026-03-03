@@ -1,6 +1,5 @@
 require('plugin.everforest')
 require('plugin.snacks')
-require('plugin.treesitter')
 require('plugin.mini')
 require('plugin.autopairs')
 require('plugin.conform')

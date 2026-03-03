@@ -1,5 +1,4 @@
 local function flash_setup()
-	vim.pack.add({ 'https://github.com/folke/flash.nvim' }, { confirm = false })
 	require('flash'):setup()
 	require('core.keymap').map({
 		{ 's', function() require('flash').jump() end, mode = { 'n', 'x', 'o' }, desc = 'Flash' },
