@@ -9,7 +9,6 @@ local function lsp_setup()
 		'nixd',
 		-- lua
 		'emmylua_ls',
-		'stylua',
 		-- rust
 		'rust_analyzer',
 		-- js/ts
