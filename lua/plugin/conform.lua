@@ -3,6 +3,7 @@ local opts = {
 		lua = { 'stylua' },
 		fish = { 'fish_indent' },
 		sh = { 'shfmt' },
+		json = { 'jq' },
 	},
 	formatters = {
 		injected = { options = { ignore_errors = true } },
@@ -15,7 +16,7 @@ vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
 		vim.schedule(function()
 			---@diagnostic disable-next-line
 			require('conform').setup(opts)
-			vim.keymap.set({ 'n', 'x' }, 'gw', function() require('conform').format({ lsp_fallback = true }) end)
+			vim.keymap.set({ 'n', 'x' }, '<leader><space>', function() require('conform').format({ lsp_fallback = true }) end)
 		end)
 	end,
 })

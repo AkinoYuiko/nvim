@@ -16,7 +16,7 @@ map({
 	-- {'ca', cmd('silent %y+'),},
 	-- { '<leader>c', cmd('set spell! spell?') },
 	{ '<leader>l', cmd('set list! list?') },
-	{ '<leader>m', cmd('set number! number?') },
+	-- { '<leader>m', cmd('set number! number?') },
 	{ '<leader>w', cmd('set wrap! wrap?') },
 	{ '<leader><cr>', cmd('noh') },
 	-- {'<leader><leader>', '/<++><CR>:noh<CR>"_c4l',},
