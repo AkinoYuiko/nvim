@@ -4,7 +4,8 @@ local function mini_setup()
 	-- Mini Packs Setup
 	local process_items_opts = { kind_priority = { Text = -1, Snippet = 99 } }
 	local process_items = function(items, base)
-		return MiniCompletion.default_process_items(items, base, process_items_opts)
+		local ok, ret = pcall(MiniCompletion.default_process_items, items, base, process_items_opts)
+		if ok then return ret end
 	end
 	local mini_modules = {
 		['completion'] = {
@@ -51,13 +52,13 @@ local function mini_setup()
 	-- mini pick keymap
 	require('core.keymap').map({
 		-- File/Package keymaps
-		{ '<leader>e', function() MiniFiles.open() end, desc = 'open mini.files' },
-		{ '<leader>f', function() MiniPick.builtin.files() end, desc = 'open mini.pick' },
-		{ '<leader>/', function() MiniPick.builtin.grep_live() end, desc = 'open mini.pick grep' },
-		{ '<leader>h', function() MiniPick.builtin.help() end, desc = 'open mini.pick help' },
-		{ '<leader>b', function() MiniPick.builtin.buffers() end, desc = 'open mini.pick buffers' },
-		{ '<leader>:', function() MiniExtra.pickers.history() end, desc = 'open mini.pick command history' },
-		{ '<leader>,', function() MiniExtra.pickers.git_files() end, desc = 'open mini.pick git files' },
+		{ '<leader>e', function() pcall(MiniFiles.open) end, desc = 'open mini.files' },
+		{ '<leader>f', function() pcall(MiniPick.builtin.files) end, desc = 'open mini.pick' },
+		{ '<leader>/', function() pcall(MiniPick.builtin.grep_live) end, desc = 'open mini.pick grep' },
+		{ '<leader>h', function() pcall(MiniPick.builtin.help) end, desc = 'open mini.pick help' },
+		{ '<leader>b', function() pcall(MiniPick.builtin.buffers) end, desc = 'open mini.pick buffers' },
+		{ '<leader>:', function() pcall(MiniExtra.pickers.history) end, desc = 'open mini.pick command history' },
+		{ '<leader>,', function() pcall(MiniExtra.pickers.git_files) end, desc = 'open mini.pick git files' },
 	})
 end
 autocmd('UIEnter', {
