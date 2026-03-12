@@ -1,8 +1,8 @@
+if not pcall(vim.cmd.packadd, 'conform.nvim') then return end
 vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
 	group = vim.api.nvim_create_augroup('lsp.conform', { clear = true }),
 	once = true,
 	callback = function()
-		pcall(vim.cmd.packadd, 'conform.nvim')
 		vim.schedule(function()
 			local ok, mod = pcall(require, 'conform')
 			if ok and mod.setup then

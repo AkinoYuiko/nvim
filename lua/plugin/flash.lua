@@ -1,5 +1,5 @@
+if not pcall(vim.cmd.packadd, 'flash.nvim') then return end
 local function flash_setup()
-	pcall(vim.cmd.packadd, 'flash.nvim')
 	local ok, mod = pcall(require, 'flash')
 	if ok and mod.setup then
 		mod.setup()

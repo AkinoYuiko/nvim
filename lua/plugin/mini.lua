@@ -1,3 +1,4 @@
+if not pcall(vim.cmd.packadd, 'mini.nvim') then return end
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local function mini_setup()
@@ -64,10 +65,7 @@ end
 autocmd('UIEnter', {
 	group = augroup('mini.nvim', { clear = true }),
 	once = true,
-	callback = function()
-		pcall(vim.cmd.packadd, 'mini.nvim')
-		vim.schedule(mini_setup)
-	end,
+	callback = function() vim.schedule(mini_setup) end,
 })
 -- Disable mini.completion in snacks
 autocmd('FileType', {

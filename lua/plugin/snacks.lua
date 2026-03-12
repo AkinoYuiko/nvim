@@ -1,6 +1,4 @@
-pcall(vim.cmd.packadd, 'snacks.nvim')
-local ok = pcall(require, 'snacks')
-if not ok then return end
+if not pcall(vim.cmd.packadd, 'snacks.nvim') then return end
 local picker_exclude = {
 	'**/.git/*',
 	'**/node_modules/*',

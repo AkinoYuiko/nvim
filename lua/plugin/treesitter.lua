@@ -1,5 +1,5 @@
-local ok = pcall(vim.cmd.packadd, 'nvim-treesitter')
-if not (ok and vim.fn.has('nvim-0.12') == 1) then return end
+if not pcall(vim.cmd.packadd, 'nvim-treesitter') then return end
+if not vim.fn.has('nvim-0.12') == 1 then return end
 local autocmd = vim.api.nvim_create_autocmd
 local group = vim.api.nvim_create_augroup('nvim-treesitter', { clear = true })
 local function ts_setup()
