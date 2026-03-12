@@ -1,3 +1,6 @@
+pcall(vim.cmd.packadd, 'snacks.nvim')
+local ok = pcall(require, 'snacks')
+if not ok then return end
 local picker_exclude = {
 	'**/.git/*',
 	'**/node_modules/*',
@@ -95,9 +98,6 @@ local opts = {
 		},
 	},
 }
-pcall(vim.cmd.packadd, 'snacks.nvim')
-local ok = pcall(require, 'snacks')
-if not ok then return end
 require('snacks').setup(opts)
 require('core.keymap').map({
 	-- Top Pickers & Explorer
