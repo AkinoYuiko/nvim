@@ -69,3 +69,7 @@ map({
 	{ 'cs', function() require('function.surround').change_surround() end, desc = 'change surround' },
 	{ 'S', function() require('function.surround').add_surround() end, desc = 'add surround', mode = { 'v' } },
 })
+if not (vim.fn.has('nvim-0.12') == 1) then return end
+map({
+	{ '<leader>up', function() vim.pack.update(nil, { force = true }) end, desc = 'update all packs' },
+})
