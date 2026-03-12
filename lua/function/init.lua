@@ -13,6 +13,7 @@ autocmd('BufReadPost', {
 		if not fname:match('^COMMIT_EDITMSG$') then
 			vim.cmd.setlocal('formatoptions-=ro')
 			local pos = vim.fn.getpos('\'"')
+			---@diagnostic disable-next-line
 			if pos[2] > 0 and pos[2] <= vim.fn.line('$') then vim.api.nvim_win_set_cursor(0, { pos[2], pos[3] - 1 }) end
 		end
 	end,
