@@ -1,3 +1,6 @@
+local is_nix = vim.v.progpath:match("/nix/store") ~= nil
 require('core')
 require('function')
-require('plugin')
+if is_nix then
+	require('plugin')
+end
