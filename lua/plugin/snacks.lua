@@ -95,9 +95,10 @@ local opts = {
 		},
 	},
 }
-pcall(vim.cmd.packadd, 'snacks')
+pcall(vim.cmd.packadd, 'snacks.nvim')
 local ok = pcall(require, 'snacks')
-if ok then require('snacks').setup(opts) end
+if not ok then return end
+require('snacks').setup(opts)
 require('core.keymap').map({
 	-- Top Pickers & Explorer
 	{ '<leader>m', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },
