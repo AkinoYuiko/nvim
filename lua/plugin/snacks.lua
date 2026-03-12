@@ -1,4 +1,4 @@
-vim.pack.add({ 'https://github.com/folke/snacks.nvim' }, { confirm = false })
+if momo.nopack('snacks.nvim') then return end
 local picker_exclude = {
 	'**/.git/*',
 	'**/node_modules/*',
@@ -17,7 +17,7 @@ local picker_exclude = {
 	'**/digest*.txt',
 	'**/.node-gyp/**',
 }
-require('snacks').setup({
+local opts = {
 	bigfile = { enabled = true },
 	-- indent = {
 	-- 	enabled = true,
@@ -95,10 +95,11 @@ require('snacks').setup({
 			},
 		},
 	},
-})
+}
+require('snacks').setup(opts)
 require('core.keymap').map({
 	-- Top Pickers & Explorer
-	{ '<leader><space>', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },
+	{ '<leader>m', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },
 	-- { '<leader>b', function() Snacks.picker.buffers() end, desc = 'Buffers' },
 	-- { '<leader>/', function() Snacks.picker.grep() end, desc = 'Grep' },
 	-- { '<leader>:', function() Snacks.picker.command_history() end, desc = 'Command History' },

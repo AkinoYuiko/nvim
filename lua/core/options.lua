@@ -8,7 +8,6 @@ opt.shiftround = true
 opt.shiftwidth = 0
 opt.tabstop = 2
 opt.mouse = 'nv'
-opt.cmdheight = 0
 opt.pumheight = 10
 opt.pumwidth = 10
 opt.scrolloff = 8

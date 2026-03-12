@@ -1,6 +1,7 @@
+if momo.nopack('fidget.nvim') then return end
 local function fidget_setup()
-	vim.pack.add({ 'https://github.com/j-hui/fidget.nvim' }, { confirm = false })
-	require('fidget').setup({ notification = { override_vim_notify = true } })
+	local ok, mod = pcall(require, 'fidget')
+	if ok and mod.setup then mod.setup({ notification = { override_vim_notify = true } }) end
 end
 vim.api.nvim_create_autocmd('UIEnter', {
 	group = vim.api.nvim_create_augroup('plugin.fidget', { clear = trueL }),

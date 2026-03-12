@@ -1,13 +1,4 @@
-local autocmd = vim.api.nvim_create_autocmd
-local group = vim.api.nvim_create_augroup('lspconfig', { clear = true })
 local function lsp_setup()
-	vim.pack.add({
-		'https://github.com/neovim/nvim-lspconfig',
-		-- 'https://github.com/mason-org/mason.nvim',
-		-- 'https://github.com/mason-org/mason-lspconfig.nvim',
-	}, {
-		confirm = false,
-	})
 	vim.lsp.enable({
 		-- shell
 		'bashls',
@@ -16,7 +7,6 @@ local function lsp_setup()
 		'nixd',
 		-- lua
 		'emmylua_ls',
-		'stylua',
 		-- rust
 		'rust_analyzer',
 		-- js/ts
@@ -30,7 +20,7 @@ local function lsp_setup()
 	vim.diagnostic.config({ virtual_text = true })
 	-- set lsp key bindings
 	require('core.keymap').map({
-		-- { 'gw', vim.lsp.buf.format, desc = 'LSP Format', mode = { 'n', 'x' } },
+		{ 'gw', '<nop>', mode = { 'n', 'x' } },
 		{ 'gq', '<nop>', mode = { 'n', 'x' } },
 		-- lsp hover
 		{ '<leader>k', vim.lsp.buf.hover, desc = 'lsp hover' },
@@ -44,8 +34,11 @@ local function lsp_setup()
 		{ 'gI', vim.lsp.buf.implementation, desc = 'Goto Implementation' },
 	})
 end
-autocmd('UIEnter', {
-	group = group,
+vim.api.nvim_create_autocmd('UIEnter', {
+	group = vim.api.nvim_create_augroup('lspconfig', { clear = true }),
 	once = true,
-	callback = function() vim.schedule(lsp_setup) end,
+	callback = function()
+		pcall(vim.cmd.packadd, 'nvim-lspconfig')
+		vim.schedule(lsp_setup)
+	end,
 })

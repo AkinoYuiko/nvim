@@ -16,7 +16,7 @@ map({
 	-- {'ca', cmd('silent %y+'),},
 	-- { '<leader>c', cmd('set spell! spell?') },
 	{ '<leader>l', cmd('set list! list?') },
-	{ '<leader>m', cmd('set number! number?') },
+	-- { '<leader>m', cmd('set number! number?') },
 	{ '<leader>w', cmd('set wrap! wrap?') },
 	{ '<leader><cr>', cmd('noh') },
 	-- {'<leader><leader>', '/<++><CR>:noh<CR>"_c4l',},
@@ -68,4 +68,8 @@ map({
 	{ '<leader>iw', function() require('function.invert_word').invert_word() end, desc = 'invert word' },
 	{ 'cs', function() require('function.surround').change_surround() end, desc = 'change surround' },
 	{ 'S', function() require('function.surround').add_surround() end, desc = 'add surround', mode = { 'v' } },
+})
+if not (vim.fn.has('nvim-0.12') == 1) then return end
+map({
+	{ '<leader>up', function() vim.pack.update(nil, { force = true }) end, desc = 'update all packs' },
 })
