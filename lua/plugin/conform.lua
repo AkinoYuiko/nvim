@@ -1,4 +1,15 @@
-if not pcall(vim.cmd.packadd, 'conform.nvim') then return end
+if momo.nopack('conform.nvim') then return end
+local opts = {
+	formatters_by_ft = {
+		lua = { 'stylua' },
+		fish = { 'fish_indent' },
+		sh = { 'shfmt' },
+		json = { 'jq' },
+	},
+	formatters = {
+		injected = { options = { ignore_errors = true } },
+	},
+}
 vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
 	group = vim.api.nvim_create_augroup('lsp.conform', { clear = true }),
 	once = true,
@@ -6,17 +17,7 @@ vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
 		vim.schedule(function()
 			local ok, mod = pcall(require, 'conform')
 			if ok and mod.setup then
-				mod.setup({
-					formatters_by_ft = {
-						lua = { 'stylua' },
-						fish = { 'fish_indent' },
-						sh = { 'shfmt' },
-						json = { 'jq' },
-					},
-					formatters = {
-						injected = { options = { ignore_errors = true } },
-					},
-				})
+				mod.setup(opts)
 				vim.keymap.set(
 					{ 'n', 'x' },
 					'<leader><space>',

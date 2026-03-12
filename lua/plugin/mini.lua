@@ -1,4 +1,4 @@
-if not pcall(vim.cmd.packadd, 'mini.nvim') then return end
+if momo.nopack('mini.nvim') then return end
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local function mini_setup()

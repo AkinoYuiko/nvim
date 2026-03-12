@@ -1,4 +1,4 @@
-if not pcall(vim.cmd.packadd, 'flash.nvim') then return end
+if momo.nopack('flash.nvim') then return end
 local function flash_setup()
 	local ok, mod = pcall(require, 'flash')
 	if ok and mod.setup then

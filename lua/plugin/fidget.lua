@@ -1,4 +1,4 @@
-if not pcall(vim.cmd.packadd, 'fidget.nvim') then return end
+if momo.nopack('fidget.nvim') then return end
 local function fidget_setup()
 	local ok, mod = pcall(require, 'fidget')
 	if ok and mod.setup then mod.setup({ notification = { override_vim_notify = true } }) end

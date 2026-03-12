@@ -1,4 +1,4 @@
-if not pcall(vim.cmd.packadd, 'nvim-autopairs') then return end
+if momo.nopack('nvim-autopairs') then return end
 vim.api.nvim_create_autocmd('InsertEnter', {
 	group = vim.api.nvim_create_augroup('nvim-autopairs', { clear = true }),
 	once = true,

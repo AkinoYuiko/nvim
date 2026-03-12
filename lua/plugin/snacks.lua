@@ -1,4 +1,4 @@
-if not pcall(vim.cmd.packadd, 'snacks.nvim') then return end
+if momo.nopack('snacks.nvim') then return end
 local picker_exclude = {
 	'**/.git/*',
 	'**/node_modules/*',
