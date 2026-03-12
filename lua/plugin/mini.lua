@@ -31,11 +31,13 @@ local function mini_setup()
 		if ok and module.setup then module.setup(opts) end
 	end
 	-- Mini completion with LSP Compatibilities
-	autocmd('LspAttach', {
-		group = augroup('LspAttach', { clear = true }),
-		callback = function(ev) vim.bo[ev.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp' end,
-	})
-	vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() })
+	if MiniCompletion ~= nil then
+		autocmd('LspAttach', {
+			group = augroup('LspAttach', { clear = true }),
+			callback = function(ev) vim.bo[ev.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp' end,
+		})
+		vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() })
+	end
 	-- mini.keymap
 	local ok, mini_keymap = pcall(require, 'mini.keymap')
 	if ok then
