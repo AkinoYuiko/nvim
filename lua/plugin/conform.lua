@@ -10,7 +10,7 @@ local opts = {
 		injected = { options = { ignore_errors = true } },
 	},
 }
-vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
+vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
 	group = vim.api.nvim_create_augroup('lsp.conform', { clear = true }),
 	once = true,
 	callback = function()
