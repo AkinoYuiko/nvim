@@ -16,7 +16,7 @@ local picker_exclude = {
 	'**/digest*.txt',
 	'**/.node-gyp/**',
 }
-require('snacks').setup({
+local opts = {
 	bigfile = { enabled = true },
 	-- indent = {
 	-- 	enabled = true,
@@ -94,7 +94,10 @@ require('snacks').setup({
 			},
 		},
 	},
-})
+}
+pcall(vim.cmd.packadd, 'snacks')
+local ok = pcall(require, 'snacks')
+if ok then require('snacks').setup(opts) end
 require('core.keymap').map({
 	-- Top Pickers & Explorer
 	{ '<leader>m', function() Snacks.picker.smart() end, desc = 'Smart Find Files' },

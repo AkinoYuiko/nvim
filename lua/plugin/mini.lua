@@ -27,7 +27,8 @@ local function mini_setup()
 		['tabline'] = {},
 	}
 	for mod, opts in pairs(mini_modules) do
-		require('mini.' .. mod).setup(opts)
+		local ok, module = pcall(require, 'mini.' .. mod)
+		if ok and module.setup then module.setup(opts) end
 	end
 	-- Mini completion with LSP Compatibilities
 	autocmd('LspAttach', {

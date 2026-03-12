@@ -1,4 +1,4 @@
--- require('plugin.everforest')
+require('plugin.everforest')
 require('plugin.snacks')
 require('plugin.mini')
 require('plugin.autopairs')

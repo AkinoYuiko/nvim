@@ -12,11 +12,6 @@ if vim.fn.has('nvim-0.12') == 1 then
 	require('vim._core.ui2').enable({})
 	vim.opt.cmdheight = 0
 end
--- Colorscheme settings
-vim.g.everforest_background = 'hard'
-vim.g.everforest_float_style = 'blend'
-vim.g.everforest_transparent_background = 2
-vim.cmd('silent! colorscheme everforest')
 require('core.options')
 
 _G.momo = require('util')

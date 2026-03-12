@@ -1,4 +1,5 @@
 local function lsp_setup()
+	pcall(vim.cmd.packadd, 'nvim-lspconfig')
 	vim.lsp.enable({
 		-- shell
 		'bashls',
