@@ -1,5 +1,4 @@
 local function lsp_setup()
-	pcall(vim.cmd.packadd, 'nvim-lspconfig')
 	vim.lsp.enable({
 		-- shell
 		'bashls',
@@ -38,5 +37,8 @@ end
 vim.api.nvim_create_autocmd('UIEnter', {
 	group = vim.api.nvim_create_augroup('lspconfig', { clear = true }),
 	once = true,
-	callback = function() vim.schedule(lsp_setup) end,
+	callback = function()
+		pcall(vim.cmd.packadd, 'nvim-lspconfig')
+		vim.schedule(lsp_setup)
+	end,
 })
