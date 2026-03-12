@@ -1,5 +1,4 @@
 local function flash_setup()
-	require('flash'):setup()
 	pcall(vim.cmd.packadd, 'flash.nvim')
 	local ok, mod = pcall(require, 'flash')
 	if ok and mod.setup then
