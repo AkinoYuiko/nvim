@@ -22,8 +22,9 @@ autocmd('BufReadPost', {
 autocmd('FileType', {
 	group = group,
 	callback = function(ev)
-		local lang = vim.treesitter.language.get_lang(ev.match)
-		if lang and pcall(vim.treesitter.start) then
+		if pcall(vim.treesitter.start) then
+			local lang = vim.treesitter.language.get_lang(ev.match)
+			if not lang then return end
 			if vim.treesitter.query.get(lang, 'indents') then
 				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 			end
