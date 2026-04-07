@@ -1,10 +1,7 @@
 local autocmd = vim.api.nvim_create_autocmd
 local group = vim.api.nvim_create_augroup('momoGroup', { clear = true })
 -- Highlight Yanked Texts
-autocmd('TextYankPost', {
-	group = group,
-	callback = function() vim.hl.on_yank({ timeout = 300 }) end,
-})
+autocmd('TextYankPost', { group = group, callback = function() vim.hl.on_yank() end })
 -- Last place
 autocmd('BufReadPost', {
 	group = group,
