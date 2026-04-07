@@ -5,10 +5,9 @@ local opts = {
 		fish = { 'fish_indent' },
 		sh = { 'shfmt' },
 		json = { 'jq' },
+		rust = { 'rustfmt', lsp_format = 'fallback' },
 	},
-	formatters = {
-		injected = { options = { ignore_errors = true } },
-	},
+	default_format_opts = { lsp_format = 'fallback' },
 }
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
 	group = vim.api.nvim_create_augroup('lsp.conform', { clear = true }),
@@ -18,11 +17,8 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
 			local ok, mod = pcall(require, 'conform')
 			if ok and mod.setup then
 				mod.setup(opts)
-				vim.keymap.set(
-					{ 'n', 'x' },
-					'<leader><space>',
-					function() require('conform').format({ lsp_fallback = true }) end
-				)
+				vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+				vim.keymap.set({ 'n', 'x' }, '<leader><space>', require('conform').format)
 			end
 		end)
 	end,
