@@ -117,8 +117,8 @@ vim.api.nvim_create_autocmd('FileType', {
 				vim.o.foldlevel = 99
 			end
 		end
-		vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
 		vim.cmd('syntax off')
+		vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
 	end,
 })
 vim.api.nvim_create_autocmd('UIEnter', {
@@ -171,19 +171,6 @@ vim.api.nvim_create_autocmd('UIEnter', {
 		end
 	end,
 })
-vim.api.nvim_create_autocmd('LspAttach', {
-	once = true,
-	callback = function()
-		vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() })
-		vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover)
-		vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float)
-		vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ wrap = true, count = 1 }) end)
-		vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ wrap = true, count = -1 }) end)
-		vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
-		vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
-		vim.keymap.set('n', 'gI', vim.lsp.buf.implementation)
-	end,
-})
 vim.api.nvim_create_autocmd('InsertEnter', {
 	once = true,
 	callback = function()
@@ -193,5 +180,18 @@ vim.api.nvim_create_autocmd('InsertEnter', {
 			check_ts = true,
 			enable_check_bracket_line = true,
 		}) end
+	end,
+})
+vim.api.nvim_create_autocmd('LspAttach', {
+	once = true,
+	callback = function()
+		if MiniCompletion then vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() }) end
+		vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover)
+		vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float)
+		vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ wrap = true, count = 1 }) end)
+		vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ wrap = true, count = -1 }) end)
+		vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+		vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
+		vim.keymap.set('n', 'gI', vim.lsp.buf.implementation)
 	end,
 })
