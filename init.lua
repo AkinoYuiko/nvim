@@ -116,7 +116,6 @@ vim.api.nvim_create_autocmd('FileType', {
 				vim.o.foldmethod = 'expr'
 				vim.o.foldlevel = 99
 			end
-			vim.cmd('syntax off')
 		end
 		vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
 	end,
