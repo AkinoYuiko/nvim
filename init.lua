@@ -26,10 +26,10 @@ require('vim._core.ui2').enable()
 vim.opt.cmdheight = 0
 vim.g.termfeatures = { osc52 = false }
 
-vim.cmd.packadd('nohlsearch')
-vim.cmd.packadd('nvim.undotree')
-vim.cmd.packadd('nvim.difftool')
-vim.cmd.packadd('nvim-lspconfig')
+pcall(vim.cmd.packadd, 'nohlsearch')
+pcall(vim.cmd.packadd, 'nvim.undotree')
+pcall(vim.cmd.packadd, 'nvim.difftool')
+pcall(vim.cmd.packadd, 'nvim-lspconfig')
 
 -- colorscheme
 if pcall(vim.cmd.packadd, 'everforest') then
