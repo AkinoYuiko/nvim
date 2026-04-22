@@ -9,6 +9,11 @@ vim.opt.laststatus = 3
 vim.opt.scrolloff = 10
 vim.opt.winborder = 'single'
 
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.formatoptions = 'qnl1j'
+
 vim.opt.list = true
 vim.opt.wrap = false
 vim.opt.confirm = true
@@ -22,6 +27,10 @@ vim.opt.listchars = { tab = '» ', nbsp = '+', trail = '·', extends = '→', pr
 vim.opt.fillchars = { eob = ' ', fold = ' ' }
 vim.opt.grepprg = 'rg --vimgrep --no-messages --smart-case'
 
+vim.opt.complete = '.,w,b,kspell'
+vim.opt.completeopt = 'menuone,noselect,fuzzy,nosort'
+vim.opt.completetimeout = 100
+
 require('vim._core.ui2').enable()
 vim.opt.cmdheight = 0
 vim.g.termfeatures = { osc52 = false }
@@ -30,20 +39,34 @@ pcall(vim.cmd.packadd, 'nohlsearch')
 pcall(vim.cmd.packadd, 'nvim.undotree')
 pcall(vim.cmd.packadd, 'nvim.difftool')
 pcall(vim.cmd.packadd, 'nvim-lspconfig')
+vim.defer_fn(
+	function()
+		vim.lsp.enable({
+			'fish_lsp',
+			'jsonls',
+			'emmylua_ls',
+			'nixd',
+			'rust_analyzer',
+			'tombi',
+			'yamlls',
+		})
+	end,
+	0
+)
 
 -- colorscheme
 if pcall(vim.cmd.packadd, 'everforest') then
 	vim.g.everforest_background = 'hard'
 	vim.g.everforest_float_style = 'blend'
-	vim.g.everforest_transparent_background = 1
+	vim.g.everforest_transparent_background = 2
 	vim.cmd.colorscheme('everforest')
 end
 
 -- keymap
 vim.keymap.set('n', '<space>', '<nop>')
-vim.keymap.set({ 'n', 'v' }, ';', ':')
-vim.keymap.set({ 'n', 'v' }, 'H', '^')
-vim.keymap.set({ 'n', 'v' }, 'L', 'g_')
+vim.keymap.set({ 'n', 'x' }, ';', ':')
+vim.keymap.set({ 'n', 'x' }, 'H', '^')
+vim.keymap.set({ 'n', 'x' }, 'L', 'g_')
 vim.keymap.set('n', 'W', '<cmd>w<cr>')
 vim.keymap.set('n', 'Q', '<cmd>q<cr>')
 vim.keymap.set('n', 'B', '<cmd>bd<cr>')
@@ -66,10 +89,6 @@ vim.keymap.set('x', '>', '>gv')
 if pcall(vim.cmd.packadd, 'snacks.nvim') then
 	require('snacks').setup({
 		bigfile = { enabled = true },
-		indent = {
-			enabled = true,
-			animate = { duration = { step = 15, total = 300 } },
-		},
 		input = { enabled = true },
 		quickfile = { enabled = true },
 		scroll = {
@@ -97,13 +116,12 @@ if pcall(vim.cmd.packadd, 'conform.nvim') then
 	})
 	vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 	vim.keymap.set('n', '<leader><leader>', require('conform').format)
-	vim.keymap.set({ 'n', 'v' }, 'gw', '<nop>', { noremap = true })
+	vim.keymap.set({ 'n', 'x' }, 'gw', '<nop>', { noremap = true })
 end
 
 -- autocmd & lazyload
 vim.api.nvim_create_autocmd('TextYankPost', { callback = function() vim.hl.on_yank() end })
 vim.api.nvim_create_autocmd('FileType', {
-	group = group,
 	callback = function(ev)
 		if pcall(vim.treesitter.start) then
 			local lang = vim.treesitter.language.get_lang(ev.match)
@@ -117,8 +135,12 @@ vim.api.nvim_create_autocmd('FileType', {
 				vim.o.foldlevel = 99
 			end
 		end
-		vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
+		vim.bo[ev.buf].formatoptions = 'qnl1j'
 	end,
+})
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = 'help',
+	callback = function() vim.o.wrap = true end,
 })
 vim.api.nvim_create_autocmd('UIEnter', {
 	once = true,
@@ -131,35 +153,19 @@ vim.api.nvim_create_autocmd('UIEnter', {
 			vim.keymap.set({ 'o', 'x' }, 'R', require('flash').treesitter_search)
 		end
 		if pcall(vim.cmd.packadd, 'mini.nvim') then
-			require('mini.completion').setup({
-				lsp_completion = {
-					source_func = 'omnifunc',
-					auto_setup = false,
-					process_items = function(items, base)
-						local ok, ret =
-							pcall(MiniCompletion.default_process_items, items, base, { kind_priority = { Text = -1, Snippet = 99 } })
-						if ok then return ret end
-					end,
-				},
-			})
 			require('mini.cmdline').setup()
 			require('mini.diff').setup({ view = { priority = 1 } })
 			require('mini.extra').setup()
 			require('mini.files').setup({ windows = { preview = true } })
-			-- require('mini.indentscope').setup({ symbol = '|' })
+			require('mini.indentscope').setup({ symbol = '|' })
 			require('mini.pick').setup()
 			require('mini.snippets').setup()
 			require('mini.statusline').setup()
 			require('mini.tabline').setup()
-			local ok, mini_keymap = pcall(require, 'mini.keymap')
-			if ok then
-				local map_multistep = mini_keymap.map_multistep
-				if map_multistep ~= nil then
-					map_multistep('i', '<tab>', { 'pmenu_next' })
-					map_multistep('i', '<s-tab>', { 'pmenu_prev' })
-					map_multistep('i', '<cr>', { 'pmenu_accept' })
-				end
-			end
+			require('mini.keymap').setup()
+			MiniKeymap.map_multistep('i', '<tab>', { 'pmenu_next' })
+			MiniKeymap.map_multistep('i', '<s-tab>', { 'pmenu_prev' })
+			MiniKeymap.map_multistep('i', '<cr>', { 'pmenu_accept', 'minipairs_cr' })
 			vim.keymap.set('n', '<leader>e', function() pcall(MiniFiles.open) end)
 			vim.keymap.set('n', '<leader>f', function() pcall(MiniPick.builtin.files) end)
 			vim.keymap.set('n', '<leader>/', function() pcall(MiniPick.builtin.grep_live) end)
@@ -183,8 +189,22 @@ vim.api.nvim_create_autocmd('InsertEnter', {
 })
 vim.api.nvim_create_autocmd('LspAttach', {
 	once = true,
-	callback = function()
-		if MiniCompletion then vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() }) end
+	callback = function(ev)
+		if pcall(vim.cmd.packadd, 'mini.nvim') then
+			local process_items_opts = { kind_priority = { Text = -1, Snippet = 99 } }
+			local process_items = function(items, base)
+				return MiniCompletion.default_process_items(items, base, process_items_opts)
+			end
+			require('mini.completion').setup({
+				lsp_completion = {
+					source_func = 'omnifunc',
+					auto_setup = false,
+					process_items = process_items,
+				},
+			})
+			vim.bo[ev.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
+			vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() })
+		end
 		vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover)
 		vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float)
 		vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ wrap = true, count = 1 }) end)
