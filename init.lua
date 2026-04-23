@@ -43,10 +43,10 @@ vim.defer_fn(
 	function()
 		vim.lsp.enable({
 			'fish_lsp',
-			'jsonls',
-			'emmylua_ls',
 			'nixd',
+			'lua_ls',
 			'rust_analyzer',
+			'jsonls',
 			'tombi',
 			'yamlls',
 		})
