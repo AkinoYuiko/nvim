@@ -9,4 +9,8 @@ vim.pack.add({
 	'https://github.com/neovim/nvim-lspconfig',
 	'https://github.com/nvim-treesitter/nvim-treesitter',
 	'https://github.com/folke/snacks.nvim',
+	'saghen/blink.lib',
+	'saghen/blink.cmp',
 })
+local cmp = require('blink.cmp')
+cmp.build():wait(60000)
