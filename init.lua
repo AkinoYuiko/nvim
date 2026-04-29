@@ -7,7 +7,6 @@ vim.opt.mouse = 'nv'
 vim.opt.number = true
 vim.opt.laststatus = 3
 vim.opt.scrolloff = 10
-vim.opt.winborder = 'single'
 
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
@@ -101,7 +100,7 @@ if pcall(vim.cmd.packadd, 'snacks.nvim') then
 			animate_repeat = { delay = 30, duration = { step = 3, total = 30 } },
 		},
 		statuscolumn = { enabled = true },
-		styles = { notification = { wo = { wrap = true } } },
+		-- styles = { notification = { wo = { wrap = true } } },
 		words = { enabled = true },
 	})
 end
@@ -180,11 +179,10 @@ vim.api.nvim_create_autocmd('InsertEnter', {
 	once = true,
 	callback = function()
 		if not pcall(vim.cmd.packadd, 'nvim-autopairs') then return end
-		local ok, mod = pcall(require, 'nvim-autopairs')
-		if ok and mod.setup then mod.setup({
+		require('nvim-autopairs').setup({
 			check_ts = true,
 			enable_check_bracket_line = true,
-		}) end
+		})
 	end,
 })
 vim.api.nvim_create_autocmd('LspAttach', {
