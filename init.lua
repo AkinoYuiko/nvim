@@ -166,10 +166,6 @@ vim.api.nvim_create_autocmd('UIEnter', {
 			require('mini.snippets').setup()
 			require('mini.statusline').setup()
 			require('mini.tabline').setup()
-			require('mini.keymap').setup()
-			MiniKeymap.map_multistep('i', '<tab>', { 'pmenu_next' })
-			MiniKeymap.map_multistep('i', '<s-tab>', { 'pmenu_prev' })
-			MiniKeymap.map_multistep('i', '<cr>', { 'pmenu_accept', 'minipairs_cr' })
 			vim.keymap.set('n', '<leader>e', function() pcall(MiniFiles.open) end)
 			vim.keymap.set('n', '<leader>f', function() pcall(MiniPick.builtin.files) end)
 			vim.keymap.set('n', '<leader>/', function() pcall(MiniPick.builtin.grep_live) end)
@@ -193,21 +189,31 @@ vim.api.nvim_create_autocmd('InsertEnter', {
 })
 vim.api.nvim_create_autocmd('LspAttach', {
 	once = true,
-	callback = function(ev)
-		if pcall(vim.cmd.packadd, 'mini.nvim') then
-			local process_items_opts = { kind_priority = { Text = -1, Snippet = 99 } }
-			local process_items = function(items, base)
-				return MiniCompletion.default_process_items(items, base, process_items_opts)
-			end
-			require('mini.completion').setup({
-				lsp_completion = {
-					source_func = 'omnifunc',
-					auto_setup = false,
-					process_items = process_items,
+	callback = function()
+		if pcall(vim.cmd.packadd, 'blink.cmp') then
+			require('blink.cmp').setup({
+				appearance = { nerd_font_variant = 'mono' },
+				completion = {
+					accept = { auto_brackets = { enabled = false } },
+					ghost_text = { enabled = true },
+					menu = { auto_show = true },
 				},
+				fuzzy = {
+					implementation = 'prefer_rust',
+					prebuilt_binaries = { download = true },
+				},
+				keymap = {
+					['<c-space>'] = { 'show', 'hide' },
+					['<cr>'] = { 'accept', 'fallback' },
+					-- ['<c-j>'] = { 'select_next', 'fallback' },
+					-- ['<c-k>'] = { 'select_prev', 'fallback' },
+					['<tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+					['<s-tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+				},
+				sources = { default = { 'lsp', 'path', 'buffer', 'snippets' } },
+				snippets = { preset = 'mini_snippets' },
+				signature = { enabled = true },
 			})
-			vim.bo[ev.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
-			vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() })
 		end
 		vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover)
 		vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float)
