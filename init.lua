@@ -84,6 +84,10 @@ vim.keymap.set('x', 'K', ":m '<-2<cr>gv=gv", { silent = true })
 vim.keymap.set('x', 'N', ':norm ')
 vim.keymap.set('x', '<', '<gv')
 vim.keymap.set('x', '>', '>gv')
+vim.keymap.set('x', '<leader>x', '"+d')
+vim.keymap.set('x', '<leader>c', '"+y')
+vim.keymap.set('x', '<leader>p', '"+p')
+vim.keymap.set('x', '<leader>P', '"+P')
 
 -- snacks
 if pcall(vim.cmd.packadd, 'snacks.nvim') then
