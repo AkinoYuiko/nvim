@@ -197,7 +197,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 					menu = { auto_show = true },
 				},
 				fuzzy = {
-					implementation = 'prefer_rust',
+					implementation = 'rust',
 					prebuilt_binaries = { download = true },
 				},
 				keymap = {
