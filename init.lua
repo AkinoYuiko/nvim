@@ -173,6 +173,28 @@ vim.api.nvim_create_autocmd('UIEnter', {
 			vim.keymap.set('n', '<leader>:', function() pcall(MiniExtra.pickers.history) end)
 			vim.keymap.set('n', '<leader>,', function() pcall(MiniExtra.pickers.git_files) end)
 		end
+		if pcall(vim.cmd.packadd, 'blink.lib') and pcall(vim.cmd.packadd, 'blink.cmp') then
+			require('blink.cmp').setup({
+				appearance = { nerd_font_variant = 'mono' },
+				completion = {
+					accept = { auto_brackets = { enabled = false } },
+					ghost_text = { enabled = true },
+					menu = { auto_show = true },
+				},
+				fuzzy = { implementation = 'rust' },
+				keymap = {
+					['<c-space>'] = { 'show', 'hide' },
+					['<cr>'] = { 'accept', 'fallback' },
+					-- ['<c-j>'] = { 'select_next', 'fallback' },
+					-- ['<c-k>'] = { 'select_prev', 'fallback' },
+					['<tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+					['<s-tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+				},
+				sources = { default = { 'lsp', 'path', 'buffer', 'snippets' } },
+				snippets = { preset = 'mini_snippets' },
+				signature = { enabled = true },
+			})
+		end
 	end,
 })
 vim.api.nvim_create_autocmd('InsertEnter', {
@@ -188,30 +210,8 @@ vim.api.nvim_create_autocmd('InsertEnter', {
 vim.api.nvim_create_autocmd('LspAttach', {
 	once = true,
 	callback = function()
-		if pcall(vim.cmd.packadd, 'blink.cmp') then
-			require('blink.cmp').setup({
-				appearance = { nerd_font_variant = 'mono' },
-				completion = {
-					accept = { auto_brackets = { enabled = false } },
-					ghost_text = { enabled = true },
-					menu = { auto_show = true },
-				},
-				fuzzy = {
-					implementation = 'rust',
-					prebuilt_binaries = { download = true },
-				},
-				keymap = {
-					['<c-space>'] = { 'show', 'hide' },
-					['<cr>'] = { 'accept', 'fallback' },
-					-- ['<c-j>'] = { 'select_next', 'fallback' },
-					-- ['<c-k>'] = { 'select_prev', 'fallback' },
-					['<tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
-					['<s-tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
-				},
-				sources = { default = { 'lsp', 'path', 'buffer', 'snippets' } },
-				snippets = { preset = 'mini_snippets' },
-				signature = { enabled = true },
-			})
+		if pcall(vim.cmd.packadd, 'blink.lib') and pcall(vim.cmd.packadd, 'blink.cmp') then
+			vim.lsp.config['*'] = { capabilities = require('blink.cmp').get_lsp_capabilities() }
 		end
 		vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover)
 		vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float)
