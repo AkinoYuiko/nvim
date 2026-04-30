@@ -179,14 +179,22 @@ vim.api.nvim_create_autocmd('UIEnter', {
 				completion = {
 					accept = { auto_brackets = { enabled = false } },
 					ghost_text = { enabled = true },
-					menu = { auto_show = true },
+					menu = {
+						auto_show = true,
+						draw = {
+							columns = {
+								{ 'label', 'label_description', gap = 1 },
+								{ 'kind' },
+							},
+						},
+					},
 				},
 				fuzzy = { implementation = 'rust' },
 				keymap = {
 					['<c-space>'] = { 'show', 'hide' },
 					['<cr>'] = { 'accept', 'fallback' },
-					-- ['<c-j>'] = { 'select_next', 'fallback' },
-					-- ['<c-k>'] = { 'select_prev', 'fallback' },
+					['<c-j>'] = { 'select_next', 'fallback' },
+					['<c-k>'] = { 'select_prev', 'fallback' },
 					['<tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
 					['<s-tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
 				},
