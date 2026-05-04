@@ -149,6 +149,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('UIEnter', {
 	once = true,
 	callback = function()
+		if pcall(vim.cmd.packard, 'fidget.nvim') then require('fidget').setup() end
 		if pcall(vim.cmd.packadd, 'flash.nvim') then
 			require('flash').setup()
 			vim.keymap.set({ 'n', 'o', 'x' }, 's', require('flash').jump)
