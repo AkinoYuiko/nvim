@@ -159,7 +159,7 @@ vim.api.nvim_create_autocmd('UIEnter', {
 			vim.keymap.set({ 'o', 'x' }, 'R', require('flash').treesitter_search)
 		end
 		if pcall(vim.cmd.packadd, 'mini.nvim') then
-			require('mini.cmdline').setup()
+			-- require('mini.cmdline').setup()
 			require('mini.diff').setup({ view = { priority = 1 } })
 			require('mini.extra').setup()
 			require('mini.files').setup({ windows = { preview = true } })
