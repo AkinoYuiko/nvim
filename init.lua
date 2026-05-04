@@ -57,7 +57,9 @@ vim.defer_fn(
 if pcall(vim.cmd.packadd, 'everforest') then
 	vim.g.everforest_background = 'hard'
 	vim.g.everforest_float_style = 'blend'
-	vim.g.everforest_transparent_background = 2
+	if not vim.g.neovide then
+		vim.g.everforest_transparent_background = 2
+	end
 	vim.cmd.colorscheme('everforest')
 end
 
