@@ -7,6 +7,7 @@ vim.opt.mouse = 'nv'
 vim.opt.number = true
 vim.opt.laststatus = 3
 vim.opt.scrolloff = 10
+vim.opt.winborder = 'single'
 
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
@@ -149,7 +150,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('UIEnter', {
 	once = true,
 	callback = function()
-		if pcall(vim.cmd.packard, 'fidget.nvim') then require('fidget').setup() end
+		if pcall(vim.cmd.packadd, 'fidget.nvim') then require('fidget').setup() end
 		if pcall(vim.cmd.packadd, 'flash.nvim') then
 			require('flash').setup()
 			vim.keymap.set({ 'n', 'o', 'x' }, 's', require('flash').jump)
