@@ -1,5 +1,7 @@
 vim.loader.enable()
 vim.g.mapleader = ' '
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = 'number'
@@ -18,6 +20,7 @@ vim.opt.list = true
 vim.opt.wrap = false
 vim.opt.confirm = true
 vim.opt.swapfile = false
+vim.opt.shadafile = "NONE"
 vim.opt.termguicolors = true
 
 vim.opt.ignorecase = true
