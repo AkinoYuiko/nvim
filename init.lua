@@ -143,7 +143,7 @@ vim.api.nvim_create_autocmd('FileType', {
 				vim.o.foldlevel = 99
 			end
 		end
-		vim.bo[ev.buf].formatoptions = 'qnl1j'
+		vim.opt_local.formatoptions:remove({ "c", "r" })
 	end,
 })
 vim.api.nvim_create_autocmd('FileType', {
