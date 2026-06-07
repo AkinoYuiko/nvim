@@ -20,7 +20,7 @@ vim.opt.list = true
 vim.opt.wrap = false
 vim.opt.confirm = true
 vim.opt.swapfile = false
-vim.opt.shadafile = "NONE"
+vim.opt.shadafile = 'NONE'
 vim.opt.termguicolors = true
 
 vim.opt.ignorecase = true
@@ -143,7 +143,7 @@ vim.api.nvim_create_autocmd('FileType', {
 				vim.o.foldlevel = 99
 			end
 		end
-		vim.opt_local.formatoptions:remove({ "c", "r" })
+		vim.opt_local.formatoptions:remove({ 'c', 'r' })
 	end,
 })
 vim.api.nvim_create_autocmd('FileType', {
